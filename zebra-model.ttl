@@ -294,17 +294,15 @@
                                                         owl:onProperty :has_color ;
                                                         owl:hasValue   :ivory ] ) ] .
 
-:GreenRightOfIvoryHouse
+:HouseRightOfIvoryHouse
     a                   owl:Class ;
     owl:equivalentClass [ a                  owl:Class ;
-                          owl:intersectionOf ( :House [ a              owl:Restriction ;
-                                                        owl:onProperty :has_color ;
-                                                        owl:hasValue   :green ] [ a                  owl:Restriction ;
-                                                                                  owl:onProperty     :right_of ;
-                                                                                  owl:someValuesFrom :IvoryHouse ] ) ] .
+                          owl:intersectionOf ( :House [ a                  owl:Restriction ;
+                                                        owl:onProperty     :right_of ;
+                                                        owl:someValuesFrom :IvoryHouse ] ) ] .
 
 :green
-    :color_of [ a :GreenRightOfIvoryHouse ] .
+    :color_of [ a :HouseRightOfIvoryHouse ] .
 
 # 7.
 :SnailOwner
@@ -342,125 +340,108 @@
     :lives_in :house_1 .
 
 # 10.
-:MiddleHouse
-    a                   owl:Class ;
-    owl:equivalentClass [ a                  owl:Class ;
-                          owl:intersectionOf ( :House [ a                  owl:Restriction ;
-                                                        owl:onProperty     :left_of ;
-                                                        owl:someValuesFrom [ a                  owl:Class ;
-                                                                             owl:intersectionOf ( :House
-                                                                                                  [ a owl:Restriction ;
-                                                                                                    owl:onProperty
-                                                                                                      :left_of ;
-                                                                                                    owl:someValuesFrom
-                                                                                                      :House ] ) ] ]
-                                               [ a                  owl:Restriction ;
-                                                 owl:onProperty     :right_of ;
-                                                 owl:someValuesFrom [ a                  owl:Class ;
-                                                                      owl:intersectionOf ( :House [ a owl:Restriction ;
-                                                                                                    owl:onProperty
-                                                                                                      :right_of ;
-                                                                                                    owl:someValuesFrom
-                                                                                                      :House ] ) ] ] ) ] .
-
-:ManLivingInMiddleHouse
-    a                   owl:Class ;
-    owl:equivalentClass [ a                  owl:Class ;
-                          owl:intersectionOf ( :Man [ a                  owl:Restriction ;
-                                                      owl:onProperty     :lives_in ;
-                                                      owl:someValuesFrom :MiddleHouse ] ) ] .
-
-:milk
-    :drunk_by [ a :ManLivingInMiddleHouse ] .
-
-# 11.
-#:HouseLeftOfFoxHouse
+#:MiddleHouse
 #    a                   owl:Class ;
 #    owl:equivalentClass [ a                  owl:Class ;
 #                          owl:intersectionOf ( :House [ a                  owl:Restriction ;
 #                                                        owl:onProperty     :left_of ;
 #                                                        owl:someValuesFrom [ a                  owl:Class ;
 #                                                                             owl:intersectionOf ( :House
-#                                                                                                  [ a                  owl:Restriction ;
-#                                                                                                    owl:onProperty     :owned_by ;
-#                                                                                                    owl:someValuesFrom [ a owl:Class ;
-#                                                                                                                         owl:intersectionOf
-#                                                                                                                           ( :Man
-#                                                                                                                             [ a owl:Restriction ;
-#                                                                                                                               owl:onProperty
-#                                                                                                                                 :owns ;
-#                                                                                                                               owl:hasValue
-#                                                                                                                                 :fox ] ) ] ] ) ] ] ) ] .
+#                                                                                                  [ a owl:Restriction ;
+#                                                                                                    owl:onProperty
+#                                                                                                      :left_of ;
+#                                                                                                    owl:someValuesFrom
+#                                                                                                      :House ] ) ] ]
+#                                               [ a                  owl:Restriction ;
+#                                                 owl:onProperty     :right_of ;
+#                                                 owl:someValuesFrom [ a                  owl:Class ;
+#                                                                      owl:intersectionOf ( :House [ a owl:Restriction ;
+#                                                                                                    owl:onProperty
+#                                                                                                      :right_of ;
+#                                                                                                    owl:someValuesFrom
+#                                                                                                      :House ] ) ] ] ) ] .
 #
-#:HouseRightOfFoxHouse
-#    a                   owl:Class ;
-#    owl:equivalentClass [ a                  owl:Class ;
-#                          owl:intersectionOf ( :House [ a                  owl:Restriction ;
-#                                                        owl:onProperty     :right_of ;
-#                                                        owl:someValuesFrom [ a                  owl:Class ;
-#                                                                             owl:intersectionOf ( :House
-#                                                                                                  [ a                  owl:Restriction ;
-#                                                                                                    owl:onProperty     :owned_by ;
-#                                                                                                    owl:someValuesFrom [ a owl:Class ;
-#                                                                                                                         owl:intersectionOf
-#                                                                                                                           ( :Man
-#                                                                                                                             [ a owl:Restriction ;
-#                                                                                                                               owl:onProperty
-#                                                                                                                                 :owns ;
-#                                                                                                                               owl:hasValue
-#                                                                                                                                 :fox ] ) ] ] ) ] ] ) ] .
-#
-#:HouseNextToFoxHouse
-#    a                   owl:Class ;
-#    owl:equivalentClass [ a           owl:Class ;
-#                          owl:unionOf ( :HouseLeftOfFoxHouse :HouseRightOfFoxHouse ) ] .
-#
-#:ManLivingInHouseNextToFox
+#:ManLivingInMiddleHouse
 #    a                   owl:Class ;
 #    owl:equivalentClass [ a                  owl:Class ;
 #                          owl:intersectionOf ( :Man [ a                  owl:Restriction ;
 #                                                      owl:onProperty     :lives_in ;
-#                                                      owl:someValuesFrom :HouseNextToFoxHouse ] ) ] .
+#                                                      owl:someValuesFrom :MiddleHouse ] ) ] .
 #
-#:chesterfields
-#    :smoked_by [ a :ManLivingInHouseNextToFox ] .
+#:milk
+#    :drunk_by [ a :ManLivingInMiddleHouse ] .
+
+# 11.
+:ManOwningFox
+    a [ a                   owl:Class ;
+        owl:equivalentClass [ owl:intersectionOf ( :Man [ a              owl:Restriction ;
+                                                          owl:onProperty :owns ;
+                                                          owl:hasValue   :fox ] ) ] ] .
+
+:FoxHouse
+    a [ a                   owl:Class ;
+        owl:equivalentClass [ a                  owl:Class ;
+                              owl:intersectionOf ( :House [ a                  owl:Restriction ;
+                                                            owl:onProperty     :home_of ;
+                                                            owl:someValuesFrom :ManOwningFox ] ) ] ] .
+
+:HouseLeftOfFoxHouse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :House [ a                  owl:Restriction ;
+                                                        owl:onProperty     :left_of ;
+                                                        owl:someValuesFrom :FoxHouse ] ) ] .
+
+:HouseRightOfFoxHouse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :House [ a                  owl:Restriction ;
+                                                        owl:onProperty     :right_of ;
+                                                        owl:someValuesFrom :FoxHouse ] ) ] .
+
+:HouseNextToFoxHouse
+    a                   owl:Class ;
+    owl:equivalentClass [ a           owl:Class ;
+                          owl:unionOf ( :HouseLeftOfFoxHouse :HouseRightOfFoxHouse ) ] .
+
+:ManLivingInHouseNextToFox
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Man [ a                  owl:Restriction ;
+                                                      owl:onProperty     :lives_in ;
+                                                      owl:someValuesFrom :HouseNextToFoxHouse ] ) ] .
+
+:chesterfields
+    :smoked_by [ a :ManLivingInHouseNextToFox ] .
 
 # 12.
+:ManOwningHorse
+    a [ a                   owl:Class ;
+        owl:equivalentClass [ a                  owl:Class ;
+                              owl:intersectionOf ( :Man [ a              owl:Restriction ;
+                                                          owl:onProperty :owns ;
+                                                          owl:hasValue   :horse ] ) ] ] .
+
+:HorseHouse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :House [ a                  owl:Restriction ;
+                                                        owl:onProperty     :home_of ;
+                                                        owl:someValuesFrom :ManOwningHorse ] ) ] .
+
 :HouseLeftOfHorseHouse
     a                   owl:Class ;
     owl:equivalentClass [ a                  owl:Class ;
                           owl:intersectionOf ( :House [ a                  owl:Restriction ;
                                                         owl:onProperty     :left_of ;
-                                                        owl:someValuesFrom [ a                  owl:Class ;
-                                                                             owl:intersectionOf ( :House
-                                                                                                  [ a                  owl:Restriction ;
-                                                                                                    owl:onProperty     :owned_by ;
-                                                                                                    owl:someValuesFrom [ a owl:Class ;
-                                                                                                                         owl:intersectionOf
-                                                                                                                           ( :Man
-                                                                                                                             [ a owl:Restriction ;
-                                                                                                                               owl:onProperty
-                                                                                                                                 :owns ;
-                                                                                                                               owl:hasValue
-                                                                                                                                 :horse ] ) ] ] ) ] ] ) ] .
+                                                        owl:someValuesFrom :HorseHouse ] ) ] .
 
 :HouseRightOfHorseHouse
     a                   owl:Class ;
     owl:equivalentClass [ a                  owl:Class ;
                           owl:intersectionOf ( :House [ a                  owl:Restriction ;
                                                         owl:onProperty     :right_of ;
-                                                        owl:someValuesFrom [ a                  owl:Class ;
-                                                                             owl:intersectionOf ( :House
-                                                                                                  [ a                  owl:Restriction ;
-                                                                                                    owl:onProperty     :owned_by ;
-                                                                                                    owl:someValuesFrom [ a owl:Class ;
-                                                                                                                         owl:intersectionOf
-                                                                                                                           ( :Man
-                                                                                                                             [ a owl:Restriction ;
-                                                                                                                               owl:onProperty
-                                                                                                                                 :owns ;
-                                                                                                                               owl:hasValue
-                                                                                                                                 :horse ] ) ] ] ) ] ] ) ] .
+                                                        owl:someValuesFrom :HorseHouse ] ) ] .
 
 :HouseNextToHorseHouse
     a                   owl:Class ;
@@ -492,34 +473,27 @@
 :japanese
     :smokes :parliaments .
 
-## 15.
+# 15.
+:BlueHouse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :House [ a              owl:Restriction ;
+                                                        owl:onProperty :has_color ;
+                                                        owl:hasValue   :blue ] ) ] .
+
 :HouseLeftOfBlueHouse
     a                   owl:Class ;
     owl:equivalentClass [ a                  owl:Class ;
                           owl:intersectionOf ( :House [ a                  owl:Restriction ;
                                                         owl:onProperty     :left_of ;
-                                                        owl:someValuesFrom [ a                   owl:Class ;
-                                                                             owl:equivalentClass [ a                  owl:Class ;
-                                                                                                   owl:intersectionOf ( :House
-                                                                                                                        [ a owl:Restriction ;
-                                                                                                                          owl:onProperty
-                                                                                                                            :has_color ;
-                                                                                                                          owl:hasValue
-                                                                                                                            :blue ] ) ] ] ] ) ] .
+                                                        owl:someValuesFrom :BlueHouse ] ) ] .
 
 :HouseRightOfBlueHouse
     a                   owl:Class ;
     owl:equivalentClass [ a                  owl:Class ;
                           owl:intersectionOf ( :House [ a                  owl:Restriction ;
                                                         owl:onProperty     :right_of ;
-                                                        owl:someValuesFrom [ a                   owl:Class ;
-                                                                             owl:equivalentClass [ a                  owl:Class ;
-                                                                                                   owl:intersectionOf ( :House
-                                                                                                                        [ a owl:Restriction ;
-                                                                                                                          owl:onProperty
-                                                                                                                            :has_color ;
-                                                                                                                          owl:hasValue
-                                                                                                                            :blue ] ) ] ] ] ) ] .
+                                                        owl:someValuesFrom :BlueHouse ] ) ] .
 
 :HouseNextToBlueHouse
     a                   owl:Class ;
@@ -528,3 +502,4 @@
 
 :norwegian
     :lives_in [ a :HouseNextToBlueHouse ] .
+
