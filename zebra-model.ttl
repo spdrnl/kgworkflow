@@ -3,59 +3,157 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .
-@base <http://www.nefoundland.nl/otc/zebra-puzzle>.
+@base <http://www.nefoundland.nl/otc/zebra-puzzle/>.
 
 # Classes and objects
 :Man
     a         owl:Class ;
     owl:oneOf ( :english :japanese :norwegian :spaniard :ukranian ) .
 
+:english
+    a owl:NamedIndividual, :Man .
+
+:japanese
+    a owl:NamedIndividual, :Man .
+
+:norwegian
+    a owl:NamedIndividual, :Man .
+
+:spaniard
+    a owl:NamedIndividual, :Man .
+
+:ukranian
+    a owl:NamedIndividual, :Man .
+
 []
     a                   owl:AllDifferent ;
     owl:distinctMembers ( :english :japanese :norwegian :spaniard :ukranian ) .
+
+###
 
 :House
     a         owl:Class ;
     owl:oneOf ( :house_1 :house_2 :house_3 :house_4 :house_5 ) .
 
+:house_1
+    a owl:NamedIndividual, :House .
+
+:house_2
+    a owl:NamedIndividual, :House .
+
+:house_3
+    a owl:NamedIndividual, :House .
+
+:house_4
+    a owl:NamedIndividual, :House .
+
+:house_5
+    a owl:NamedIndividual, :House .
+
 []
     a                   owl:AllDifferent ;
     owl:distinctMembers ( :house_1 :house_2 :house_3 :house_4 :house_5 ) .
+
+###
 
 :Color
     a         owl:Class ;
     owl:oneOf ( :blue :green :ivory :red :yellow ) .
 
+:blue
+    a owl:NamedIndividual, :Color .
+
+:green
+    a owl:NamedIndividual, :Color .
+
+:ivory
+    a owl:NamedIndividual, :Color .
+
+:red
+    a owl:NamedIndividual, :Color .
+
+:yellow
+    a owl:NamedIndividual, :Color .
+
 []
     a                   owl:AllDifferent ;
     owl:distinctMembers ( :blue :green :ivory :red :yellow ) .
+
+###
 
 :Cigarette
     a         owl:Class ;
     owl:oneOf ( :chesterfields :kools :lucky_strikes :old_gold :parliaments ) .
 
+:chesterfields
+    a owl:NamedIndividual, :Cigarette .
+
+:kools
+    a owl:NamedIndividual, :Cigarette .
+
+:lucky_strikes
+    a owl:NamedIndividual, :Cigarette .
+
+:old_gold
+    a owl:NamedIndividual, :Cigarette .
+
+:parliaments
+    a owl:NamedIndividual, :Cigarette .
+
 []
     a                   owl:AllDifferent ;
     owl:distinctMembers ( :chesterfields :kools :lucky_strikes :old_gold :parliaments ) .
+
+###
 
 :Beverage
     a         owl:Class ;
     owl:oneOf ( :coffee :milk :tea :water :orange_juice ) .
 
+:coffee
+    a owl:NamedIndividual, :Beverage .
+
+:milk
+    a owl:NamedIndividual, :Beverage .
+
+:tea
+    a owl:NamedIndividual, :Beverage .
+
+:water
+    a owl:NamedIndividual, :Beverage .
+
+:orange_juice
+    a owl:NamedIndividual, :Beverage .
+
 []
     a                   owl:AllDifferent ;
     owl:distinctMembers ( :coffee :milk :tea :water :orange_juice ) .
 
-:pets
-    a ( :dog :fox :snail :horse :zebra ) .
-
-[]
-    a                   owl:AllDifferent ;
-    owl:distinctMembers :pets .
+###
 
 :Pet
     a         owl:Class ;
-    owl:oneOf :pets .
+    owl:oneOf ( :dog :fox :snail :horse :zebra ) .
+
+:dog
+    a owl:NamedIndividual, :Pet .
+
+:fox
+    a owl:NamedIndividual, :Pet .
+
+:snail
+    a owl:NamedIndividual, :Pet .
+
+:horse
+    a owl:NamedIndividual, :Pet .
+
+:zebra
+    a owl:NamedIndividual, :Pet .
+
+[]
+    a                   owl:AllDifferent ;
+    owl:distinctMembers ( :dog :fox :snail :horse :zebra ) .
+
 
 []
     a           owl:AllDisjointClasses ;
@@ -94,7 +192,7 @@
     a             owl:ObjectProperty, owl:FunctionalProperty ;
     rdfs:domain   :Man ;
     rdfs:range    :House ;
-    owl:inverseOf :lives_in .
+    owl:inverseOf :home_of .
 
 :owns
     a           owl:ObjectProperty, owl:FunctionalProperty ;
@@ -128,120 +226,121 @@
     rdfs:domain   :Cigarette ;
     rdfs:range    :Man ;
     owl:inverseOf :smokes .
-# Observations
 
-# 1. Closure on House class.
-
-# 2.
-:english
-    :lives_in [ a          :House ;
-                :has_color :red ] .
-
-# 3.
-:spaniard
-    :owns :dog .
-
-# 4 .
-
-:ukranian
-    :drinks :tea .
-
-# 6.
-
-:old_gold
-    :smoked_by [ a     :Man ;
-                 :owns :snail ] .
-
-:kools
-    :smoked_by [ a         :Man ;
-                 :lives_in [ a          :House ;
-                             :has_color :yellow ] ] .
-# 9.
-
-:norwegian
-    :lives_in :house_1 .
-
-# 10.
-:milk
-    :drunk_by [ a         :Man ;
-                :lives_in _:middle_house ] .
-
-_:middle_house
-    a         :House ;
-    :left_of  [ a        :House ;
-                :left_of [ a :House ] ] ;
-    :right_of [ a         :House ;
-                :right_of [ a :House ] ] .
-# 11.
-:chesterfields
-    :smoked_by [ a         :Man ;
-                 :lives_in _:house_next_to_house_with_fox ] .
-
-_:house_left_to_house_with_fox
-    a        :House ;
-    :left_of [ a         :House ;
-               :owned_by [ a     :Man ;
-                           :owns :fox ] ] .
-
-_:house_right_to_house_with_fox
-    a         :House ;
-    :right_of [ a         :House ;
-                :owned_by [ a     :Man ;
-                            :owns :fox ] ] .
-
-_:house_next_to_house_with_fox
-    a                   owl:Class ;
-    owl:equivalentClass [ a           owl:Class ;
-                          owl:unionOf ( _:house_left_to_house_with_fox _:house_right_to_house_with_fox ) ] .
-
-
-# 12.
-
-:kools
-    :smoked_by [ a         :Man ;
-                 :lives_in _:house_next_to_house_with_horse ] .
-
-_:house_left_to_house_with_horse
-    a        :House ;
-    :left_of [ a         :House ;
-               :owned_by [ a     :Man ;
-                           :owns :horse ] ] .
-
-_:house_right_to_house_with_horse
-    a         :House ;
-    :right_of [ a         :House ;
-                :owned_by [ a     :Man ;
-                            :owns :horse ] ] .
-
-_:house_next_to_house_with_horse
-    a                   owl:Class ;
-    owl:equivalentClass [ a           owl:Class ;
-                          owl:unionOf ( _:house_left_to_house_with_horse _:house_right_to_house_with_horse ) ] .
-
-# 13.
-:orange_juice
-    :drunk_by [ a       :Man ;
-                :smokes :lucky_strikes ] .
-
-# 14.
-:japanese
-    :smokes :parliaments .
-
-# 15.
-:norwegian
-    :lives_in _:house_next_to_blue_house .
-
-_:house_left_to_blue_house
-    a        :House ;
-    :left_of [ a          :House ;
-               :has_color :blue ] .
-
-_:house_right_to_blue_house
-    a         :House ;
-    :right_of [ a          :House ;
-                :has_color :blue ] .
-
-_:house_next_to_blue_house
-    a                   owl:Class ;
-    owl:equivalentClass [ a           owl:Class ;
-                          owl:unionOf ( _:house_left_to_blue_house _:house_right_to_blue_house ) ] .
+## Observations
+#
+## 1. Closure on House class.
+#
+## 2.
+#:english
+#    :lives_in [ a          :House ;
+#                :has_color :red ] .
+#
+## 3.
+#:spaniard
+#    :owns :dog .
+#
+## 4 .
+#
+#:ukranian
+#    :drinks :tea .
+#
+## 6.
+#
+#:old_gold
+#    :smoked_by [ a     :Man ;
+#                 :owns :snail ] .
+#
+#:kools
+#    :smoked_by [ a         :Man ;
+#                 :lives_in [ a          :House ;
+#                             :has_color :yellow ] ] .
+## 9.
+#
+#:norwegian
+#    :lives_in :house_1 .
+#
+## 10.
+#:milk
+#    :drunk_by [ a         :Man ;
+#                :lives_in _:middle_house ] .
+#
+#_:middle_house
+#    a         :House ;
+#    :left_of  [ a        :House ;
+#                :left_of [ a :House ] ] ;
+#    :right_of [ a         :House ;
+#                :right_of [ a :House ] ] .
+## 11.
+#:chesterfields
+#    :smoked_by [ a         :Man ;
+#                 :lives_in _:house_next_to_house_with_fox ] .
+#
+#_:house_left_to_house_with_fox
+#    a        :House ;
+#    :left_of [ a         :House ;
+#               :owned_by [ a     :Man ;
+#                           :owns :fox ] ] .
+#
+#_:house_right_to_house_with_fox
+#    a         :House ;
+#    :right_of [ a         :House ;
+#                :owned_by [ a     :Man ;
+#                            :owns :fox ] ] .
+#
+#_:house_next_to_house_with_fox
+#    a                   owl:Class ;
+#    owl:equivalentClass [ a           owl:Class ;
+#                          owl:unionOf ( _:house_left_to_house_with_fox _:house_right_to_house_with_fox ) ] .
+#
+#
+## 12.
+#
+#:kools
+#    :smoked_by [ a         :Man ;
+#                 :lives_in _:house_next_to_house_with_horse ] .
+#
+#_:house_left_to_house_with_horse
+#    a        :House ;
+#    :left_of [ a         :House ;
+#               :owned_by [ a     :Man ;
+#                           :owns :horse ] ] .
+#
+#_:house_right_to_house_with_horse
+#    a         :House ;
+#    :right_of [ a         :House ;
+#                :owned_by [ a     :Man ;
+#                            :owns :horse ] ] .
+#
+#_:house_next_to_house_with_horse
+#    a                   owl:Class ;
+#    owl:equivalentClass [ a           owl:Class ;
+#                          owl:unionOf ( _:house_left_to_house_with_horse _:house_right_to_house_with_horse ) ] .
+#
+## 13.
+#:orange_juice
+#    :drunk_by [ a       :Man ;
+#                :smokes :lucky_strikes ] .
+#
+## 14.
+#:japanese
+#    :smokes :parliaments .
+#
+## 15.
+#:norwegian
+#    :lives_in _:house_next_to_blue_house .
+#
+#_:house_left_to_blue_house
+#    a        :House ;
+#    :left_of [ a          :House ;
+#               :has_color :blue ] .
+#
+#_:house_right_to_blue_house
+#    a         :House ;
+#    :right_of [ a          :House ;
+#                :has_color :blue ] .
+#
+#_:house_next_to_blue_house
+#    a                   owl:Class ;
+#    owl:equivalentClass [ a           owl:Class ;
+#                          owl:unionOf ( _:house_left_to_blue_house _:house_right_to_blue_house ) ] .
