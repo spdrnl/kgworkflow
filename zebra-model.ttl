@@ -3,7 +3,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .
-@base <http://www.nefoundland.nl/otc/zebra-puzzle/>.
+@base <http://www.newfoundland.nl/otc/zebra-puzzle/>.
 
 <http://www.nefoundland.nl/otc/zebra-puzzle>
     a owl:Ontology .
@@ -340,50 +340,30 @@
     :lives_in :house_1 .
 
 # 10.
-#:MiddleHouse
-#    a                   owl:Class ;
-#    owl:equivalentClass [ a                  owl:Class ;
-#                          owl:intersectionOf ( :House [ a                  owl:Restriction ;
-#                                                        owl:onProperty     :left_of ;
-#                                                        owl:someValuesFrom [ a                  owl:Class ;
-#                                                                             owl:intersectionOf ( :House
-#                                                                                                  [ a owl:Restriction ;
-#                                                                                                    owl:onProperty
-#                                                                                                      :left_of ;
-#                                                                                                    owl:someValuesFrom
-#                                                                                                      :House ] ) ] ]
-#                                               [ a                  owl:Restriction ;
-#                                                 owl:onProperty     :right_of ;
-#                                                 owl:someValuesFrom [ a                  owl:Class ;
-#                                                                      owl:intersectionOf ( :House [ a owl:Restriction ;
-#                                                                                                    owl:onProperty
-#                                                                                                      :right_of ;
-#                                                                                                    owl:someValuesFrom
-#                                                                                                      :House ] ) ] ] ) ] .
-#
-#:ManLivingInMiddleHouse
-#    a                   owl:Class ;
-#    owl:equivalentClass [ a                  owl:Class ;
-#                          owl:intersectionOf ( :Man [ a                  owl:Restriction ;
-#                                                      owl:onProperty     :lives_in ;
-#                                                      owl:someValuesFrom :MiddleHouse ] ) ] .
-#
-#:milk
-#    :drunk_by [ a :ManLivingInMiddleHouse ] .
+:ManLivingInMiddleHouse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Man [ a              owl:Restriction ;
+                                                      owl:onProperty :lives_in ;
+                                                      owl:hasValue   :house_3 ] ) ] .
+
+:milk
+    :drunk_by [ a :ManLivingInMiddleHouse ] .
 
 # 11.
 :ManOwningFox
-    a [ a                   owl:Class ;
-        owl:equivalentClass [ owl:intersectionOf ( :Man [ a              owl:Restriction ;
-                                                          owl:onProperty :owns ;
-                                                          owl:hasValue   :fox ] ) ] ] .
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Man [ a              owl:Restriction ;
+                                                      owl:onProperty :owns ;
+                                                      owl:hasValue   :fox ] ) ] .
 
 :FoxHouse
-    a [ a                   owl:Class ;
-        owl:equivalentClass [ a                  owl:Class ;
-                              owl:intersectionOf ( :House [ a                  owl:Restriction ;
-                                                            owl:onProperty     :home_of ;
-                                                            owl:someValuesFrom :ManOwningFox ] ) ] ] .
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :House [ a                  owl:Restriction ;
+                                                        owl:onProperty     :home_of ;
+                                                        owl:someValuesFrom :ManOwningFox ] ) ] .
 
 :HouseLeftOfFoxHouse
     a                   owl:Class ;
@@ -416,11 +396,11 @@
 
 # 12.
 :ManOwningHorse
-    a [ a                   owl:Class ;
-        owl:equivalentClass [ a                  owl:Class ;
-                              owl:intersectionOf ( :Man [ a              owl:Restriction ;
-                                                          owl:onProperty :owns ;
-                                                          owl:hasValue   :horse ] ) ] ] .
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Man [ a              owl:Restriction ;
+                                                      owl:onProperty :owns ;
+                                                      owl:hasValue   :horse ] ) ] .
 
 :HorseHouse
     a                   owl:Class ;
@@ -503,3 +483,10 @@
 :norwegian
     :lives_in [ a :HouseNextToBlueHouse ] .
 
+# And who owns the zebra?
+:ZebraOwner
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Man [ a                  owl:Restriction ;
+                                                        owl:onProperty     :owns ;
+                                                        owl:someValuesFrom :Pet ] ) ] .
