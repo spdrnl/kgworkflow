@@ -488,5 +488,5 @@
     a                   owl:Class ;
     owl:equivalentClass [ a                  owl:Class ;
                           owl:intersectionOf ( :Man [ a                  owl:Restriction ;
-                                                        owl:onProperty     :owns ;
-                                                        owl:someValuesFrom :Pet ] ) ] .
+                                                      owl:onProperty     :owns ;
+                                                      owl:hasValue :zebra ] ) ] .
