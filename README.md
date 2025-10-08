@@ -58,6 +58,7 @@ powershell -c "irm https://astral.sh/uv/install.ps1 | more"
 ### Install project using uv
 
 ```sh
+uv venv
 uv sync
 ```
 
