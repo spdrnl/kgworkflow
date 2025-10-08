@@ -69,7 +69,7 @@ To install uv on Windows you can download the installer from https://astral.sh/u
 powershell -c "irm https://astral.sh/uv/install.ps1 | more"
 ```
 
-### Install Python packages
+### Install Python packages using uv
 
 ```sh
 uv sync
@@ -93,6 +93,8 @@ Having uv select the correct Python interpreter makes running a more advanced wo
 
 A quick overview of uv commands is available at: https://docs.astral.sh/uv/getting-started/features/
 
+For a crash course see: https://www.youtube.com/watch?v=zgSQr0d5EVg
+
 ## Install command line tools
 
 With uv it is easy to install command line tools. See the project.scripts section in the pyproject.toml file. If you run
@@ -115,6 +117,8 @@ sparql-select -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.tt
 ```
 ## Install just
 To install just see: https://just.systems/man/en/
+
+For a crash course see: https://www.youtube.com/watch?v=W3pSSVwx--k
 
 ## Execute a workflow
 To execute a workflow with just run:
