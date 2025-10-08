@@ -2,16 +2,18 @@
 
 ## Introduction
 
-The goal of this project is to provide a simple and easy to use workflow for working with knowledge graphs. The project shows:
+The goal of this project is to provide a simple and easy to use workflow for working with knowledge graphs. 
 
+The project shows:
 - How to execute OWL related tasks using Python.
-- How to create your command line tools using for these tasks.
+- How to create your command line tools for these tasks.
 - How to execute a workflow of commands line tools.
 - How to run Jupyter notebooks using developed Python modules.
 - How to potentially distribute your project as a package.
 
-The project is structured in such a way that it can be used in a simple and more advanced way. Below are some examples
-of the type of commands that the project will allow you to execute. The tools that are used in the examples are:
+The project is structured in such a way that it can be used in a simple and more advanced way. 
+
+The tools that are used in the examples are:
 
 - python
 - uv
@@ -19,14 +21,16 @@ of the type of commands that the project will allow you to execute. The tools th
 - jupyter
 - git
 
-uv is a tool that makes it easy to manage Python projects. It is a wrapper around pip and virtualenv. It is a newer
-version of a tool called Poetry. just is a tool similar to make. make, although a standard under Linux, is somewhat
-dated. just an also be used anywhere on the command prompt, scripts can be made executable with it.
-
 All these tools are available for Windows, macOS and Linux.
 
-## If you do not want to use uv
+uv is a tool that makes it easy to manage Python projects. It is a wrapper around pip and virtualenv. It is a newer version of a tool called Poetry. 
 
+just is a tool similar to make. make, although a standard under Linux, is somewhat
+dated. just an also be used anywhere on the command prompt, scripts can be made executable with it.
+
+Python, git and Jupyter are assumed to be known and installed.
+
+## If you do not want to use uv
 If you do not want to run uv and just, you can install the required Python as follows:
 
 ```sh
@@ -35,8 +39,7 @@ pip install -r requirements.txt
 
 Now you can use the project to develop Python programs.
 
-It is in the long run recommended to use uv and just. These tools can save you a lot of time in the long run. On top of
-that, these tools are currently popular in main stream development teams.
+It is in the long run recommended to use uv and just. These tools can save you a lot of time in the long run. On top of that, these tools are currently popular in main stream development teams.
 
 ## Install uv
 
