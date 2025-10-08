@@ -8,6 +8,7 @@ shows:
 - How to execute OWL related tasks using Python.
 - How to create your command line tools using for these tasks.
 - How to execute a workflow of commands line tools.
+- How to run Jupyter notebooks using developed Python modules.
 - How to potentially distribute your project as a package.
 
 The project is structured in such a way that it can be used in a simple and more advanced way. Below are some examples
