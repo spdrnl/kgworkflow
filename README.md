@@ -2,8 +2,7 @@
 
 ## Introduction
 
-The goal of this project is to provide a simple and easy to use workflow for working with knowledge graphs. The project
-shows:
+The goal of this project is to provide a simple and easy to use workflow for working with knowledge graphs. The project shows:
 
 - How to execute OWL related tasks using Python.
 - How to create your command line tools using for these tasks.
