@@ -17,7 +17,7 @@ def sparql_ask(sparql, graph) -> bool:
     return result.askAnswer
 
 
-def sparql_df(sparql, graph) -> DataFrame:
+def sparql_query(sparql, graph) -> DataFrame:
     result = graph.query(sparql)
     df_result = sparql_results_to_df(result)
     normalized_df_result = normalize_uris(df_result, graph)
@@ -66,9 +66,14 @@ def reason(graph: Graph, reasoner: str = 'hermit') -> Graph:
             res = subprocess.run(
                 [
                     ROBOT, "reason",
-                    "--reasoner", reasoner,
                     "--input", input_file.name,
                     "--output", output_file.name,
+                    "--create-new-ontology", "true",
+                    "--equivalent-classes-allowed", "all",
+                    "--include-indirect", "true",
+                    "--axiom-generators",
+                    "\"SubClass EquivalentClass DisjointClasses ClassAssertion PropertyAssertion\"",
+                    "--reasoner", reasoner,
                 ],
                 capture_output=True,
                 text=True,
@@ -92,16 +97,21 @@ def get_project_root() -> Path:
     return Path(os.path.abspath(__file__)).parent.parent.parent
 
 
-def output_ttl(g: Graph, filename: str = "out") -> None:
+def output_ttl(graph: Graph) -> None:
+    base = None
+    default_ns = None
     if os.getenv("DEFAULT_NAMESPACE"):
         default_ns = Namespace(os.getenv("DEFAULT_NAMESPACE"))
-        g.bind("", default_ns)
 
-    output_file = f"{get_project_root()}/{filename}.ttl"
-    write_ttl(g, output_file)
+    output_file = f"{get_project_root()}/out.ttl"
+    write_ttl(graph, output_file, default_ns, base)
 
 
-def write_ttl(g: Graph, filename: str) -> None:
+def write_ttl(graph: Graph, filename: str, default_ns: Namespace = None, base: str = None) -> None:
     logger.debug(f"Writing graph to {filename}")
+
+    if default_ns:
+        graph.bind("", default_ns)
+
     with open(filename, "wb") as f:
-        g.serialize(f, format="turtle")
+        graph.serialize(f, format="turtle", base=base)

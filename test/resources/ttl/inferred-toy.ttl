@@ -1,0 +1,27 @@
+@prefix : <http://www.owl-test.org/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:green_ball a :Toy,
+        owl:NamedIndividual,
+        owl:Thing ;
+    :has_color "green" .
+
+:has_color a owl:DatatypeProperty .
+
+:red_ball a :RedToy,
+        :Toy,
+        owl:NamedIndividual,
+        owl:Thing ;
+    :has_color "red" .
+
+:RedToy a owl:Class ;
+    rdfs:subClassOf :Toy ;
+    owl:disjointWith owl:Nothing .
+
+:Toy a owl:Class ;
+    rdfs:subClassOf owl:Thing ;
+    owl:disjointWith owl:Nothing .
+
+[] a owl:Ontology .
+
