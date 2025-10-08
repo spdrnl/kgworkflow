@@ -12,14 +12,14 @@ import pandas as pd
 logger = logging.getLogger(__name__)
 
 
-def sparql_ask(sparql, graph) -> bool:
+def sparql_ask(graph, sparql) -> bool:
     result = graph.query(sparql)
     return result.askAnswer
 
 
-def sparql_query(sparql, graph) -> DataFrame:
-    result = graph.query(sparql)
-    df_result = sparql_results_to_df(result)
+def sparql_select(graph: Graph, sparql: str) -> DataFrame:
+    sparqlResult = graph.query(sparql)
+    df_result = sparql_results_to_df(sparqlResult)
     normalized_df_result = normalize_uris(df_result, graph)
     return normalized_df_result
 
@@ -47,7 +47,7 @@ def normalize_uris(df: DataFrame, graph: Graph) -> DataFrame:
             return nm.normalizeUri(val)
         return val
 
-    return df.applymap(convert_uri)
+    return df.map(convert_uri)
 
 
 def reason(graph: Graph, reasoner: str = 'hermit') -> Graph:

@@ -2,7 +2,7 @@ import logging
 import os
 import tempfile
 
-from util.kg import reason, get_kg, sparql_query, get_sparql, sparql_ask, output_ttl, write_ttl
+from util.kg import reason, get_kg, sparql_select, get_sparql, sparql_ask, output_ttl, write_ttl
 from dotenv import load_dotenv
 
 from util.setup_logging import setup_logging
@@ -31,7 +31,7 @@ def test_reason_hermit():
     query = get_sparql("test/resources/sparql/ask-red-toy.sparql")
     kb = reason(get_kg(TOY), reasoner='hermit')
     output_ttl(kb)
-    result = sparql_ask(sparql=query, graph=kb)
+    result = sparql_ask(graph=kb, sparql=query)
     assert result == True
 
 
@@ -43,9 +43,9 @@ def test_write_ttl():
         )
 
 
-def test_sparql_df():
+def test_sparql_select():
     query = get_sparql("test/resources/sparql/s-p-o.sparql")
-    result = sparql_query(query, get_kg(TOY))
+    result = sparql_select(get_kg(TOY), query)
     assert len(result) > 0
 
 
@@ -53,9 +53,9 @@ def test_sparql_ask():
     query = get_sparql("test/resources/sparql/ask-red-toy.sparql")
 
     kg = get_kg("test/resources/ttl/inferred-toy.ttl")
-    result = sparql_ask(sparql=query, graph=kg)
+    result = sparql_ask(graph=kg, sparql=query)
     assert result == True
 
     kg = get_kg(TOY)
-    result = sparql_ask(sparql=query, graph=kg)
+    result = sparql_ask(graph=kg, sparql=query)
     assert result == False
