@@ -117,6 +117,7 @@ sparql-select -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.tt
 ```
 
 ## Getting you feet wet
+
 To show how these tools all tie together, let's execute a SPARQL query. If you installed all the tools as described
 above, you can execute a command to do this in four different ways.
 
@@ -144,27 +145,34 @@ Execute a SPARQL query as part of a workflow using just:
  just sparql-select
 ```
 
-See the justfile for more information. On Windows the example command 'echo' might not work. In that case you can can
-maybe use 'echo.exe'.
+See the justfile for more information. On Windows the example command 'echo' might not work. In that case you can maybe
+use 'echo.exe'.
 
 In just, you can add options to the commands, and execute them in a specific order. This saves a lot of time and
 memorizing the order of the commands.
 
 ## Developing your own command line tools
-If you want to develop your own project using this project, issue this command to remove the remote origin from the project:
+
+If you want to develop your own project using this project, issue this command to remove the remote origin from the
+project:
+
 ```sh
 git remote rm origin
 ```
 
-or 
+or
+
 ```sh
 just remove-origin
 ```
 
 ## Running notebooks
-If you want to run Jupyter notebooks, check the notebooks directory. There you will find an example notebook that loads a SPARQL query using the package developed in this project.
+
+If you want to run Jupyter notebooks, check the notebooks directory. There you will find an example notebook that loads
+a SPARQL query using the package developed in this project.
 
 You can then add your own remote origin.
+
 ## Easily distribute your project as a package
 
 uv can distribute your project as a package via for example PyPI. The command to upload your project as package to PyPI
