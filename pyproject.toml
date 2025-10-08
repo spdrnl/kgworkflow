@@ -33,6 +33,6 @@ build-backend = "setuptools.build_meta"
 
 [project.scripts]
 sparql-select = "kgworkflow.sparql_select:main"
-solve-zebra = "kgworkflow.main:main"
+solve-zebra = "kgworkflow.zebra:main"
 
 
