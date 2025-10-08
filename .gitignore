@@ -1,8 +1,8 @@
 .env
-error.log
-info.log
-debug.log
-out.ttl
+logs/error.log
+logs/info.log
+logs/debug.log
+output/out.ttl
 
 # Python bytecode
 __pycache__/
