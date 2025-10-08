@@ -176,6 +176,10 @@ a SPARQL query using the package developed in this project.
 
 You can then add your own remote origin.
 
+## Logging configuration
+Special attention has been paid to the logging configuration. The logging configuration can be found in the logging.yaml file.
+
+Note that for the module kgworkflow.util.helper the log level has been set to DEBUG. Fine grained logging configuration can help debugging and error reporting. .
 ## Easily distribute your project as a package
 
 uv can distribute your project as a package via for example PyPI. The command to upload your project as package to PyPI
