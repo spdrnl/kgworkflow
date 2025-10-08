@@ -55,13 +55,13 @@ To install uv on Windows you can download the installer from https://astral.sh/u
 powershell -c "irm https://astral.sh/uv/install.ps1 | more"
 ```
 
-### Install Python packages using uv
+### Install project using uv
 
 ```sh
 uv sync
 ```
 
-### Run test
+### Run tests
 
 With uv tests can be run as follows:
 
