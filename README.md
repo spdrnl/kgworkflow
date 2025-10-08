@@ -1,4 +1,4 @@
-# kg-workflow
+# kgworkflow
 
 ## Introduction
 
