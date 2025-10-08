@@ -15,42 +15,45 @@ logger = logging.getLogger(__name__)
 logger.info("Running test_kg.py")
 logger.debug("Logging is set to INFO level by default.")
 
+TOY_KB = "test/resources/ttl/toy.ttl"
+EMPTY_TTL = "test/resources/ttl/empty.ttl"
+
 def test_get_kb():
-    g = get_kg("util-test")
+    g = get_kg(TOY_KB)
     assert len(g) > 0
 
-    g = get_kg("empty")
+    g = get_kg(EMPTY_TTL)
     assert len(g) == 0
 
 
 def test_reason_hermit():
-    result = reason(get_kg("toy"))
+    result = reason(get_kg(TOY_KB), reasoner='hermit')
     output_ttl(result)
     assert len(result) > 0
 
 
 def test_write_ttl():
     with tempfile.NamedTemporaryFile(suffix='.ttl', delete=True) as output_file:
-        write_ttl(get_kg("util-test"), output_file.name)
+        write_ttl(get_kg(TOY_KB), output_file.name)
         assert os.path.exists(
             f"{output_file.name}"
         )
 
 
 def test_sparql_df():
-    query = get_sparql("s-p-o")
-    result = sparql_df(query, get_kg("util-test"))
+    query = get_sparql("test/resources/sparql/s-p-o.sparql")
+    result = sparql_df(query, get_kg(TOY_KB))
     assert len(result) > 0
 
 
 def test_sparql_ask():
-    query = get_sparql("ask")
+    query = get_sparql("test/resources/sparql/ask.sparql")
 
-    kb = get_kg("util-test")
+    kb = get_kg(TOY_KB)
     result = sparql_ask(sparql=query, graph=kb)
     assert result == True
 
-    kb = get_kg("empty")
+    kb = get_kg(EMPTY_TTL)
     result = sparql_ask(sparql=query, graph=kb)
     assert result == False
 

@@ -20,9 +20,13 @@
                                                       owl:onProperty :has_color ;
                                                       owl:hasValue   "red" ] ) ] .
 
-:ball
+:red_ball
     a          :Toy ;
     :has_color "red" .
+
+:green_ball
+    a          :Toy ;
+    :has_color "green" .
 
 
 

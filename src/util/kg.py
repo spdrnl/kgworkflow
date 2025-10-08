@@ -11,6 +11,7 @@ import pandas as pd
 
 logger = logging.getLogger(__name__)
 
+
 def sparql_ask(sparql, graph) -> bool:
     result = graph.query(sparql)
     return result.askAnswer
@@ -76,18 +77,14 @@ def reason(graph: Graph, reasoner: str = 'hermit') -> Graph:
     return result
 
 
-def expand_path(filename: str, type: str = "ttl") -> str:
-    return f"test/{type}/{filename}.{type}"
-
-
 def get_kg(filename: str) -> Graph:
     g = Graph()
-    g.parse(expand_path(filename), format="turtle")
+    g.parse(filename, format="turtle")
     return g
 
 
 def get_sparql(filename: str) -> str:
-    with open(expand_path(filename, "sparql")) as f:
+    with open(filename) as f:
         return f.read()
 
 

@@ -1,5 +1,0 @@
-@prefix : <http://www.owl-test.org/> .
-@base <http://www.owl-test.org/> .
-
-:jan :has :ball1 .
-:jan :has :ball2 .
