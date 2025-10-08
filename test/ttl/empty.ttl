@@ -1,0 +1,2 @@
+@prefix : <http://www.owl-test.org/> .
+@base <http://www.owl-test.org/> .

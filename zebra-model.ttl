@@ -1,11 +1,11 @@
-@prefix :     <http://www.nefoundland.nl/otc/zebra-puzzle/> .
+@prefix :     <http://www.newfoundland.nl/otc/zebra-puzzle#> .
 @prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .
-@base <http://www.newfoundland.nl/otc/zebra-puzzle/>.
+@base <http://www.newfoundland.nl/otc/zebra-puzzle#>.
 
-<http://www.nefoundland.nl/otc/zebra-puzzle>
+<http://www.newfoundland.nl/otc/zebra-puzzle>
     a owl:Ontology .
 
 # Classes and objects
@@ -14,13 +14,13 @@
     owl:oneOf ( :english :japanese :norwegian :spaniard :ukranian ) .
 
 :english
-    a owl:NamedIndividual, :Man .
+    a owl:NamedIndividual, :ManLivingInRedColoredHouse .
 
 :japanese
     a owl:NamedIndividual, :Man .
 
 :norwegian
-    a owl:NamedIndividual, :Man .
+    a owl:NamedIndividual, :ManNextToBlueColoredHouse .
 
 :spaniard
     a owl:NamedIndividual, :Man .
@@ -67,7 +67,7 @@
     a owl:NamedIndividual, :Color .
 
 :green
-    a owl:NamedIndividual, :Color .
+    a owl:NamedIndividual, :ColorOfHouseRightOfIvoryColoredHouse .
 
 :ivory
     a owl:NamedIndividual, :Color .
@@ -89,16 +89,16 @@
     owl:oneOf ( :chesterfields :kools :lucky_strikes :old_gold :parliaments ) .
 
 :chesterfields
-    a owl:NamedIndividual, :Cigarette .
+    a owl:NamedIndividual, :CigaretteSmokedByManNextToFox .
 
 :kools
-    a owl:NamedIndividual, :Cigarette .
+    a owl:NamedIndividual, :Kools .
 
 :lucky_strikes
     a owl:NamedIndividual, :Cigarette .
 
 :old_gold
-    a owl:NamedIndividual, :Cigarette .
+    a owl:NamedIndividual, :CigaretteSmokedBySnailOwner .
 
 :parliaments
     a owl:NamedIndividual, :Cigarette .
@@ -114,10 +114,10 @@
     owl:oneOf ( :coffee :milk :tea :water :orange_juice ) .
 
 :coffee
-    a owl:NamedIndividual, :Beverage .
+    a owl:NamedIndividual, :BeverageDrunkByManLivingInGreenColoredHouse .
 
 :milk
-    a owl:NamedIndividual, :Beverage .
+    a owl:NamedIndividual, :BeverageDrunkByManInMiddleHouse .
 
 :tea
     a owl:NamedIndividual, :Beverage .
@@ -126,7 +126,7 @@
     a owl:NamedIndividual, :Beverage .
 
 :orange_juice
-    a owl:NamedIndividual, :Beverage .
+    a owl:NamedIndividual, :BeverageDrunkByLuckyStrikesSmoker .
 
 []
     a                   owl:AllDifferent ;
@@ -151,7 +151,7 @@
     a owl:NamedIndividual, :Pet .
 
 :zebra
-    a owl:NamedIndividual, :Pet .
+    a owl:NamedIndividual, :OwnedPet .
 
 []
     a                   owl:AllDifferent ;
@@ -209,12 +209,12 @@
     owl:inverseOf :owns .
 
 :left_of
-    a           owl:ObjectProperty, owl:FunctionalProperty ;
+    a           owl:ObjectProperty, owl:FunctionalProperty, owl:AsymmetricProperty ;
     rdfs:domain :House ;
     rdfs:range  :House .
 
 :right_of
-    a             owl:ObjectProperty, owl:FunctionalProperty ;
+    a             owl:ObjectProperty, owl:FunctionalProperty, owl:AsymmetricProperty ;
     rdfs:domain   :House ;
     rdfs:range    :House ;
     owl:inverseOf :left_of .
@@ -244,115 +244,299 @@
 :house_4
     :left_of :house_5 .
 
-# 2. Red house directly
-:RedHouse
-    a owl:Class ;
-    rdfs:subClassOf :House ;
-    owl:hasValue ( [ a owl:Restriction ;
-                     owl:onProperty :has_color ;
-                     owl:hasValue   :red ] ) .
+# 1. Closure on House class.
 
-:english
-    :lives_in [ a :RedHouse ] .
+# 2.
+:RedColoredHouse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :House [ a              owl:Restriction ;
+                                                        owl:onProperty :has_color ;
+                                                        owl:hasValue   :red ] ) ] .
+# english
+:ManLivingInRedColoredHouse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Man [ a                  owl:Restriction ;
+                                                      owl:onProperty     :lives_in ;
+                                                      owl:someValuesFrom :RedColoredHouse ] ) ] .
 
 # 3.
 :spaniard
     :owns :dog .
 
-# 4. Green house directly; coffee drunk by someone living in a green house
-:GreenHouse
-    a owl:Class ;
-    rdfs:subClassOf :House ;
-    owl:hasValue ( [ a owl:Restriction ;
-                     owl:onProperty :has_color ;
-                     owl:hasValue   :green ] ) .
+# 4 .
+:GreenColoredHouse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :House [ a              owl:Restriction ;
+                                                        owl:onProperty :has_color ;
+                                                        owl:hasValue   :green ] ) ] .
 
-:coffee
-    :drunk_by [ a :Man ;
-                :lives_in [ a :GreenHouse ] ] .
+
+:ManLivingInGreenColoredHouse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Man [ a                  owl:Restriction ;
+                                                      owl:onProperty     :lives_in ;
+                                                      owl:someValuesFrom :GreenColoredHouse ] ) ] .
+# coffee
+:BeverageDrunkByManLivingInGreenColoredHouse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Beverage [ a                  owl:Restriction ;
+                                                           owl:onProperty     :drunk_by ;
+                                                           owl:someValuesFrom :ManLivingInGreenColoredHouse ] ) ] .
 
 # 5.
 :ukranian
     :drinks :tea .
 
-# 6. Ivory and right-of constraint, directly with value and someValuesFrom as needed
-:IvoryHouse
-    a owl:Class ;
-    rdfs:subClassOf :House ;
-    owl:hasValue ( [ a owl:Restriction ;
-                     owl:onProperty :has_color ;
-                     owl:hasValue   :ivory ] ) .
+# 6.
+:IvoryColoredHouse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :House [ a              owl:Restriction ;
+                                                        owl:onProperty :has_color ;
+                                                        owl:hasValue   :ivory ] ) ] .
 
-:green
-    :color_of [ a :House ;
-                :right_of [ a :IvoryHouse ] ] .
+:HouseRightOfIvoryColoredHouse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :House [ a                  owl:Restriction ;
+                                                        owl:onProperty     :right_of ;
+                                                        owl:someValuesFrom :IvoryColoredHouse ] ) ] .
 
-# 7. Snail owner directly
-:old_gold
-    :smoked_by [ a :Man ;
-                 :owns :snail ] .
+# green
+:ColorOfHouseRightOfIvoryColoredHouse
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Color [ a                  owl:Restriction ;
+                                                        owl:onProperty     :color_of ;
+                                                        owl:someValuesFrom :HouseRightOfIvoryColoredHouse ] ) ] .
 
-# 8. Yellow house directly; Kools smoker lives in yellow house
-:YellowHouse
-    a owl:Class ;
-    rdfs:subClassOf :House ;
-    owl:hasValue ( [ a owl:Restriction ;
-                     owl:onProperty :has_color ;
-                     owl:hasValue   :yellow ] ) .
 
-:kools
-    :smoked_by [ a :Man ;
-                 :lives_in [ a :YellowHouse ] ] .
+# 7.
+:SnailOwner
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Man [ a              owl:Restriction ;
+                                                      owl:onProperty :owns ;
+                                                      owl:hasValue   :snail ] ) ] .
+# old old
+:CigaretteSmokedBySnailOwner
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Cigarette [ a                  owl:Restriction ;
+                                                            owl:onProperty     :smoked_by ;
+                                                            owl:someValuesFrom :SnailOwner ] ) ] .
+
+# 8.
+:YellowColoredHouse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :House [ a              owl:Restriction ;
+                                                        owl:onProperty :has_color ;
+                                                        owl:hasValue   :yellow ] ) ] .
+
+:ManLivingInYellowColoredHouse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Man [ a                  owl:Restriction ;
+                                                      owl:onProperty     :lives_in ;
+                                                      owl:someValuesFrom :YellowColoredHouse ] ) ] .
+
+#:KoolsSmokedByYellowHouseMan
+#    a                   owl:Class ;
+#    owl:equivalentClass [ a                  owl:Class ;
+#                          owl:intersectionOf ( :Cigarette [ a                  owl:Restriction ;
+#                                                            owl:onProperty     :smoked_by ;
+#                                                            owl:someValuesFrom :ManLivingInYellowColoredHouse ] ) ] .
+
+:Kools
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Cigarette [ a                  owl:Restriction ;
+                                                            owl:onProperty     :smoked_by ;
+                                                            owl:someValuesFrom :ManLivingInYellowColoredHouse ]
+                                               [ a                  owl:Restriction ;
+                                                 owl:onProperty     :smoked_by ;
+                                                 owl:someValuesFrom :ManLivingInHouseNextToManOwningHorse ] ) ] .
 
 # 9.
 :norwegian
     :lives_in :house_1 .
 
-# 10. Middle house beverage
-:milk
-    :drunk_by [ a :Man ;
-                :lives_in :house_3 ] .
+# 10.
+:ManLivingInMiddleHouse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Man [ a              owl:Restriction ;
+                                                      owl:onProperty :lives_in ;
+                                                      owl:hasValue   :house_3 ] ) ] .
 
-# 11. Chesterfields smoker lives next to fox owner
-:chesterfields
-    :smoked_by [ a :Man ;
-                 :lives_in [ a :House ;
-                             :left_of  [ a :House ; :home_of [ a :Man ; :owns :fox ] ] ;
-                             :right_of [ a :House ; :home_of [ a :Man ; :owns :fox ] ] ] ] .
+# milk
+:BeverageDrunkByManInMiddleHouse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Beverage [ a                  owl:Restriction ;
+                                                           owl:onProperty     :drunk_by ;
+                                                           owl:someValuesFrom :ManLivingInMiddleHouse ] ) ] .
 
-# 12. Kools smoker lives next to horse owner
-:kools
-    :smoked_by [ a :Man ;
-                 :lives_in [ a :House ;
-                             :left_of  [ a :House ; :home_of [ a :Man ; :owns :horse ] ] ;
-                             :right_of [ a :House ; :home_of [ a :Man ; :owns :horse ] ] ] ] .
+# 11.
+:ManOwningFox
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Man [ a              owl:Restriction ;
+                                                      owl:onProperty :owns ;
+                                                      owl:hasValue   :fox ] ) ] .
 
-# 13. Lucky Strikes smoker drinks orange juice
-:orange_juice
-    :drunk_by [ a :Man ;
-                :smokes :lucky_strikes ] .
+:HomeOfManOwningFox
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :House [ a                  owl:Restriction ;
+                                                        owl:onProperty     :home_of ;
+                                                        owl:someValuesFrom :ManOwningFox ] ) ] .
+
+:HouseLeftOfHomeOfManOwningFox
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :House [ a                  owl:Restriction ;
+                                                        owl:onProperty     :left_of ;
+                                                        owl:someValuesFrom :HomeOfManOwningFox ] ) ] .
+
+:HouseRightOfHomeOfManOwningFox
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :House [ a                  owl:Restriction ;
+                                                        owl:onProperty     :right_of ;
+                                                        owl:someValuesFrom :HomeOfManOwningFox ] ) ] .
+
+:HouseNextToHomeOfManOwningFox
+    a                   owl:Class ;
+    owl:equivalentClass [ a           owl:Class ;
+                          owl:unionOf ( :HouseLeftOfHomeOfManOwningFox :HouseRightOfHomeOfManOwningFox ) ] .
+
+:ManLivingInHouseNextToHomeOfManOwningFox
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Man [ a                  owl:Restriction ;
+                                                      owl:onProperty     :lives_in ;
+                                                      owl:someValuesFrom :HouseNextToHomeOfManOwningFox ] ) ] .
+# chesterfields
+:CigaretteSmokedByManNextToFox
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Cigarette [ a                  owl:Restriction ;
+                                                            owl:onProperty     :smoked_by ;
+                                                            owl:someValuesFrom :ManLivingInHouseNextToHomeOfManOwningFox ] ) ] .
+
+
+# 12.
+:ManOwningHorse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Man [ a              owl:Restriction ;
+                                                      owl:onProperty :owns ;
+                                                      owl:hasValue   :horse ] ) ] .
+
+:HouseOfManOwningHorse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :House [ a                  owl:Restriction ;
+                                                        owl:onProperty     :home_of ;
+                                                        owl:someValuesFrom :ManOwningHorse ] ) ] .
+
+:HouseLeftOfManOwningHorse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :House [ a                  owl:Restriction ;
+                                                        owl:onProperty     :left_of ;
+                                                        owl:someValuesFrom :HouseOfManOwningHorse ] ) ] .
+
+:HouseRightOfManOwningHorse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :House [ a                  owl:Restriction ;
+                                                        owl:onProperty     :right_of ;
+                                                        owl:someValuesFrom :HouseOfManOwningHorse ] ) ] .
+
+:HouseNextToManOwningHorse
+    a                   owl:Class ;
+    owl:equivalentClass [ a           owl:Class ;
+                          owl:unionOf ( :HouseLeftOfManOwningHorse :HouseRightOfManOwningHorse ) ] .
+
+:ManLivingInHouseNextToManOwningHorse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Man [ a                  owl:Restriction ;
+                                                      owl:onProperty     :lives_in ;
+                                                      owl:someValuesFrom :HouseNextToManOwningHorse ] ) ] .
+
+#see #8.
+#:KoolsCigarette
+#    a                   owl:Class ;
+#    owl:equivalentClass [ a                  owl:Class ;
+#                          owl:intersectionOf ( :Cigarette [ a                  owl:Restriction ;
+#                                                            owl:onProperty     :smoked_by ;
+#                                                            owl:someValuesFrom :ManLivingInHouseNextToManOwningHorse ] ) ] .
+
+# 13.
+:LuckyStrikesSmoker
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Man [ a              owl:Restriction ;
+                                                      owl:onProperty :smokes ;
+                                                      owl:hasValue   :lucky_strikes ] ) ] .
+# orange juice
+:BeverageDrunkByLuckyStrikesSmoker
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Beverage [ a                  owl:Restriction ;
+                                                           owl:onProperty     :drunk_by ;
+                                                           owl:someValuesFrom :LuckyStrikesSmoker ] ) ] .
 
 # 14.
 :japanese
     :smokes :parliaments .
 
-# 15. Norwegian lives next to blue house
-:BlueHouse
-    a owl:Class ;
-    rdfs:subClassOf :House ;
-    owl:hasValue ( [ a owl:Restriction ;
-                     owl:onProperty :has_color ;
-                     owl:hasValue   :blue ] ) .
+# 15.
+:BlueColoredHouse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :House [ a              owl:Restriction ;
+                                                        owl:onProperty :has_color ;
+                                                        owl:hasValue   :blue ] ) ] .
 
-:norwegian
-    :lives_in [ a :House ;
-                :left_of  [ a :BlueHouse ] ;
-                :right_of [ a :BlueHouse ] ] .
+:HouseLeftOfBlueColoredHouse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :House [ a                  owl:Restriction ;
+                                                        owl:onProperty     :left_of ;
+                                                        owl:someValuesFrom :BlueColoredHouse ] ) ] .
+
+:HouseRightOfBlueColoredHouse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :House [ a                  owl:Restriction ;
+                                                        owl:onProperty     :right_of ;
+                                                        owl:someValuesFrom :BlueColoredHouse ] ) ] .
+
+:HouseNextToBlueColoredHouse
+    a                   owl:Class ;
+    owl:equivalentClass [ a           owl:Class ;
+                          owl:unionOf ( :HouseLeftOfBlueColoredHouse :HouseRightOfBlueColoredHouse ) ] .
+# norwegian
+:ManNextToBlueColoredHouse
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Man [ a                  owl:Restriction ;
+                                                      owl:onProperty     :lives_in ;
+                                                      owl:someValuesFrom :HouseNextToBlueColoredHouse ] ) ] .
 
 # And who owns the zebra?
-:ZebraOwner
-    a owl:Class ;
-    rdfs:subClassOf :Man ;
-    owl:hasValue ( [ a owl:Restriction ;
-                     owl:onProperty :owns ;
-                     owl:hasValue   :zebra ] ) .
+:OwnedPet
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Pet [ a                  owl:Restriction ;
+                                                      owl:onProperty     :owned_by ;
+                                                      owl:someValuesFrom :Man ] ) ] .
