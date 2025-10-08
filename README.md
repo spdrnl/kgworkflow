@@ -35,6 +35,8 @@ dated. just an also be used anywhere on the command prompt, scripts can be made 
 
 Python, git and Jupyter are assumed to be known and installed.
 
+Contributions to this project are welcome. Do you have an interesting OWL or SPARQL task, create a pull request.
+
 ## If you do not want to use uv
 If you do not want to run uv and just, you can install the required Python as follows:
 
