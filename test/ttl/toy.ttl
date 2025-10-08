@@ -1,0 +1,29 @@
+@prefix :     <http://www.owl-test.org/> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ns0:  <http://persons.iis.nsk.su/files/persons/pages/einsteins_riddle.owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@base <http://www.owl-test.org/> .
+
+
+:Toy
+    a owl:Class .
+
+:has_color
+    a owl:DatatypeProperty .
+
+:RedToy
+    a                   owl:Class ;
+    owl:equivalentClass [ a                  owl:Class ;
+                          owl:intersectionOf ( :Toy [ a              owl:Restriction ;
+                                                      owl:onProperty :has_color ;
+                                                      owl:hasValue   "red" ] ) ] .
+
+:ball
+    a          :Toy ;
+    :has_color "red" .
+
+
+
+

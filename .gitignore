@@ -1,4 +1,9 @@
 .env
+error.log
+info.log
+debug.log
+out.ttl
+
 # Python bytecode
 __pycache__/
 *.py[cod]

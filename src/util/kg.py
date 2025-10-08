@@ -1,15 +1,15 @@
+import logging
+import os
 import subprocess
 import tempfile
+from pathlib import Path
 
 from pandas import DataFrame
-from rdflib import Graph, URIRef
+from rdflib import Graph, URIRef, Namespace
 from rdflib.plugins.sparql.processor import SPARQLResult
 import pandas as pd
 
-from dotenv import load_dotenv
-
-load_dotenv()
-
+logger = logging.getLogger(__name__)
 
 def sparql_ask(sparql, graph) -> bool:
     result = graph.query(sparql)
@@ -50,16 +50,21 @@ def normalize_uris(df: DataFrame, graph: Graph) -> DataFrame:
 
 
 def reason(graph: Graph, reasoner: str = 'hermit') -> Graph:
-    """Run robot reason with a temporary output; return True on success."""
-    g = Graph()
-    # robot requires an --output, so use a temp file and let it vanish
+    """Run robot reason with a temporary output; return result on success."""
+
+    ROBOT = os.getenv("ROBOT")
+    if not ROBOT:
+        logger.error("ROBOT environment variable not set")
+        raise Exception("ROBOT environment variable not set")
+
+    result = Graph()
     with tempfile.NamedTemporaryFile(suffix=".ttl", delete=True) as input_file:
         with tempfile.NamedTemporaryFile(suffix=".ttl", delete=True) as output_file:
             graph.serialize(input_file.name, format="turtle")
             input_file.flush()
             res = subprocess.run(
                 [
-                    "/home/sanne/Apps/robot/robot", "reason",
+                    ROBOT, "reason",
                     "--reasoner", reasoner,
                     "--input", input_file.name,
                     "--output", output_file.name,
@@ -67,15 +72,15 @@ def reason(graph: Graph, reasoner: str = 'hermit') -> Graph:
                 capture_output=True,
                 text=True,
             )
-            g.parse(output_file.name, format="turtle")
-    return g
+            result.parse(output_file.name, format="turtle")
+    return result
 
 
 def expand_path(filename: str, type: str = "ttl") -> str:
     return f"test/{type}/{filename}.{type}"
 
 
-def get_kb(filename: str) -> Graph:
+def get_kg(filename: str) -> Graph:
     g = Graph()
     g.parse(expand_path(filename), format="turtle")
     return g
@@ -84,3 +89,22 @@ def get_kb(filename: str) -> Graph:
 def get_sparql(filename: str) -> str:
     with open(expand_path(filename, "sparql")) as f:
         return f.read()
+
+
+def get_project_root() -> Path:
+    return Path(os.path.abspath(__file__)).parent.parent.parent
+
+
+def output_ttl(g: Graph, filename: str = "out") -> None:
+    if os.getenv("DEFAULT_NAMESPACE"):
+        default_ns = Namespace(os.getenv("DEFAULT_NAMESPACE"))
+        g.bind("", default_ns)
+
+    output_file = f"{get_project_root()}/{filename}.ttl"
+    write_ttl(g, output_file)
+
+
+def write_ttl(g: Graph, filename: str) -> None:
+    logger.debug(f"Writing graph to {filename}")
+    with open(filename, "wb") as f:
+        g.serialize(f, format="turtle")

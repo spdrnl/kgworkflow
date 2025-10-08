@@ -1,3 +1,11 @@
 # Set the approriate environment variables
-# And rename the file to .env
+# And rename this file to .env
+
+# Where to find the logging config? Default is logging.yaml
+LOGGING_CONFIG=logging.yaml
+
+# Where to find the reasoner
 ROBOT=/home/sanne/Apps/robot/robot
+
+# Use this namespace as default for output
+DEFAULT_NAMESPACE=http://www.owl-test.org/
