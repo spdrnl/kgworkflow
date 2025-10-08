@@ -76,12 +76,18 @@ uv sync
 ```
 
 ### Run test
-
 With uv tests can be run as follows:
 
 ```sh
 uv run pytest
 ```
+
+You can also run the tests with pytest directly, but then you need to make sure that you use the correct Python interpreter:
+
+```sh
+pytest
+```
+Having uv select the correct Python interpreter makes running a more advanced workflow easier.
 
 ### Quick overview of uv
 
@@ -96,8 +102,7 @@ the command below, the command line tools will be installed in the project direc
 uv pip install --editable
 ```
 
-The --editable flag installs the project in editable mode; meaning you can make changes to the project and the changes
-will be reflected in the installed package.
+The --editable flag installs the project in editable mode; meaning you can make changes to the project and the changes will be reflected in the installed package.
 
 You can now execute:
 
@@ -118,6 +123,8 @@ To execute a workflow with just run:
 ```
 
 See the justfile for more information. On Windows the example command 'echo' might not work. In that case you can can maybe use 'echo.exe'.
+
+In just, you can add options to the commands, and execute them in a specific order. This saves a lot of time and memorizing the order of the commands.
 
 ## Easily distribute your project as a package
 
