@@ -95,6 +95,19 @@ def main():
 
 
 def write_output(df, output_file):
+    """
+    Writes the provided dataframe to a CSV file at the specified location.
+
+    This function attempts to write the given dataframe to a CSV file.
+    The CSV output will include a header and exclude the index.
+
+    :param df: The dataframe to be written to the CSV file.
+    :type df: pandas.DataFrame
+    :param output_file: The path to the output file where the dataframe will
+        be saved as a CSV.
+    :type output_file: str
+    :return: None
+    """
     logger.info(f"Writing output.")
     try:
         df.to_csv(output_file, header=True, index=False)
@@ -103,6 +116,18 @@ def write_output(df, output_file):
 
 
 def run_query(input_file, query_file) -> DataFrame:
+    """
+    Executes a SPARQL query on a knowledge graph defined by the input file.
+
+    This function takes an input file containing a representation of a knowledge
+    graph and a SPARQL query file, executes the query on the graph, and returns
+    the resulting data as a DataFrame.
+
+    :param input_file: Path to the file containing the knowledge graph data.
+    :param query_file: Path to the file containing the SPARQL query.
+    :return: A DataFrame containing the results of the executed query.
+    :rtype: DataFrame
+    """
     query = get_sparql(query_file)
     kg = get_kg(input_file)
     logger.info(f"Starting query.")
