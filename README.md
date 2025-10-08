@@ -16,6 +16,8 @@ of the type of commands that the project will allow you to execute. The tools th
 - python
 - uv
 - just
+- jupyter
+- git
 
 uv is a tool that makes it easy to manage Python projects. It is a wrapper around pip and virtualenv. It is a newer
 version of a tool called Poetry. just is a tool similar to make. make, although a standard under Linux, is somewhat
@@ -158,6 +160,9 @@ or
 ```sh
 just remove-origin
 ```
+
+## Running notebooks
+If you want to run Jupyter notebooks, check the notebooks directory. There you will find an example notebook that loads a SPARQL query using the package developed in this project.
 
 You can then add your own remote origin.
 ## Easily distribute your project as a package
