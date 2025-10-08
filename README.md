@@ -61,6 +61,7 @@ powershell -c "irm https://astral.sh/uv/install.ps1 | more"
 ```
 
 ### Install project using uv
+Open the env-RENAME-ME file and follow the instructions. Next execute the following commands:
 
 ```sh
 uv venv
