@@ -2,12 +2,17 @@
 
 ## Introduction
 
-The goal of this project is to provide a simple and easy to use workflow for working with knowledge graphs. 
+The goal of this project is to provide a simple and easy to use workflow for working with knowledge graphs. The idea is that you can mix and match:
+- External command line tools
+- Python in source code files
+- Commandline tools developed by yourself
+- Notebooks
+- Automated workflow setups
 
 The project shows:
 - How to execute OWL related tasks using Python.
 - How to create your command line tools for these tasks.
-- How to execute a workflow of commands line tools.
+- How to execute a workflow of command line tools.
 - How to run Jupyter notebooks using developed Python modules.
 - How to potentially distribute your project as a package.
 
