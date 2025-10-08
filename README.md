@@ -118,6 +118,8 @@ Or, if you have installed just:
 just install
 ```
 
+If you changed the scripts in pyproject.toml, you have to reinstall the project.
+
 You can now execute:
 
 ```sh

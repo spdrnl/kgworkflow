@@ -3,6 +3,7 @@ logs/error.log
 logs/info.log
 logs/debug.log
 output/out.ttl
+output/out.csv
 
 # Python bytecode
 __pycache__/
