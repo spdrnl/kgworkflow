@@ -32,6 +32,7 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project.scripts]
-sparql-select = "sparql_select:main"
+sparql-select = "kgworkflow.sparql_select:main"
+solve-zebra = "kgworkflow.main:main"
 
 

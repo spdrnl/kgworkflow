@@ -2,10 +2,10 @@ import logging
 import os
 import tempfile
 
-from util.kg import reason, get_kg, sparql_select, get_sparql, sparql_ask, output_ttl, write_ttl
+from kgworkflow.util.helper import reason, get_kg, sparql_select, get_sparql, sparql_ask, output_ttl, write_ttl
 from dotenv import load_dotenv
 
-from util.setup_logging import setup_logging
+from kgworkflow.util.setup_logging import setup_logging
 
 load_dotenv()
 setup_logging()

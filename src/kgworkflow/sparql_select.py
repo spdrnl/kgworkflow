@@ -3,11 +3,16 @@ import logging
 import os
 import time
 
+from dotenv import load_dotenv
 from pandas import DataFrame
 
-from util.kg import get_sparql, sparql_select, get_kg
-from util.setup_logging import setup_logging
+from kgworkflow.util.helper import get_sparql, sparql_select, get_kg
+from kgworkflow.util.setup_logging import setup_logging
 
+# Get settings from .env
+load_dotenv()
+
+# Logging
 setup_logging()
 logger = logging.getLogger(__name__)
 

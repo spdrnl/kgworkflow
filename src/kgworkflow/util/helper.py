@@ -94,7 +94,7 @@ def get_sparql(filename: str) -> str:
 
 
 def get_project_root() -> Path:
-    return Path(os.path.abspath(__file__)).parent.parent.parent
+    return Path(os.path.abspath(__file__)).parent.parent.parent.parent
 
 
 def output_ttl(graph: Graph) -> None:
