@@ -32,6 +32,6 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project.scripts]
-sparql-select = "sparql_select"
+sparql-select = "sparql_select:main"
 
 

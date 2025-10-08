@@ -1,7 +1,15 @@
 import argparse
+import logging
+import os
+import time
+
+from pandas import DataFrame
 
 from util.kg import get_sparql, sparql_select, get_kg
+from util.setup_logging import setup_logging
 
+setup_logging()
+logger = logging.getLogger(__name__)
 
 def get_args() -> argparse.Namespace:
     # Initialize
@@ -39,11 +47,42 @@ def main():
     input_file = args.input_file
     output_file = args.output_file
 
+    # Echo settings
+    logger.info(f"Query file: {query_file}")
+    logger.info(f"Input file: {input_file}")
+    logger.info(f"Output file: {output_file}")
+
+    # Check if files exist
+    if not os.path.exists(query_file):
+        logger.error(f"Query file {query_file} does not exist.")
+
+    if not os.path.exists(input_file):
+        logger.error(f"Input file {input_file} does not exist.")
+
     # Execute the query
+    start_time = time.time()
+
+    df = run_query(input_file, query_file)
+    write_output(df, output_file)
+
+    end_time = time.time()
+    logger.info(f"Done in {end_time - start_time:0.3f} seconds.")
+
+
+def write_output(df, output_file):
+    logger.info(f"Writing output.")
+    try:
+        df.to_csv(output_file, header=True, index=False)
+    except Exception as e:
+        logger.error(f"Could not write output to {output_file}: {e}.")
+
+
+def run_query(input_file, query_file) -> DataFrame:
     query = get_sparql(query_file)
     kg = get_kg(input_file)
-    result = sparql_select(kg, query)
-    result.to_csv(output_file, header=True, index=False)
+    logger.info(f"Starting query.")
+    df = sparql_select(kg, query)
+    return df
 
 
 if __name__ == "__main__":
