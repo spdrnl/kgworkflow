@@ -17,6 +17,16 @@ setup_logging()
 logger = logging.getLogger(__name__)
 
 def get_args() -> argparse.Namespace:
+    """
+    Fetches command-line arguments required for processing SPARQL query files against Turtle files
+    and outputs the results into a CSV file. Parses the provided arguments and validates their
+    presence and expected types.
+
+    :raises SystemExit: If required arguments are missing or invalid arguments are passed.
+
+    :return: Namespace object containing parsed command-line arguments.
+    :rtype: argparse.Namespace
+    """
     # Initialize
     parser = argparse.ArgumentParser(
         description='The program executes a SPARQL query file against a Turtle file and outputs the results as CSV.',
@@ -46,6 +56,14 @@ def get_args() -> argparse.Namespace:
 
 
 def main():
+    """
+    Executes the main program workflow.
+
+    This executes a SPARQL query using provided files, writes the result to
+    an output file.
+
+    :return: None
+    """
     # Resolve the arguments
     args = get_args()
     query_file = args.query_file
@@ -60,9 +78,11 @@ def main():
     # Check if files exist
     if not os.path.exists(query_file):
         logger.error(f"Query file {query_file} does not exist.")
+        exit(1)
 
     if not os.path.exists(input_file):
         logger.error(f"Input file {input_file} does not exist.")
+        exit(1)
 
     # Execute the query
     start_time = time.time()
