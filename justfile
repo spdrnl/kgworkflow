@@ -14,4 +14,4 @@ solve-zebra:
     @uv run solve-zebra
 
 sparql-select: say-hello
-    @uv run sparql-select -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.ttl -o out.csv
+    @uv run sparql-select -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.ttl -o output/out.csv

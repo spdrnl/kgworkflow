@@ -16,7 +16,7 @@ handlers:
     class: logging.handlers.RotatingFileHandler
     level: INFO
     formatter: simple
-    filename: info.log
+    filename: logs/info.log
     mode: w
     encoding: utf8
 
@@ -24,7 +24,7 @@ handlers:
     class: logging.handlers.RotatingFileHandler
     level: ERROR
     formatter: simple
-    filename: error.log
+    filename: logs/error.log
     mode: w
     encoding: utf8
 
@@ -32,12 +32,12 @@ handlers:
     class: logging.handlers.RotatingFileHandler
     level: DEBUG
     formatter: simple
-    filename: debug.log
+    filename: logs/debug.log
     mode: w
     encoding: utf8
 
 loggers:
-  util.kg:
+  kgworkflow.util.helper:
     level: DEBUG
     handlers: [console, debug_file_handler]
     propagate: no

@@ -103,7 +103,7 @@ def output_ttl(graph: Graph) -> None:
     if os.getenv("DEFAULT_NAMESPACE"):
         default_ns = Namespace(os.getenv("DEFAULT_NAMESPACE"))
 
-    output_file = f"{get_project_root()}/out.ttl"
+    output_file = f"{get_project_root()}/output/out.ttl"
     write_ttl(graph, output_file, default_ns, base)
 
 
