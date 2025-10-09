@@ -30,8 +30,7 @@ All these tools are available for Windows, macOS and Linux.
 
 uv is a tool that makes it easy to manage Python projects. It is a wrapper around pip and virtualenv. It is a newer version of a tool called Poetry. 
 
-just is a tool similar to make. make, although a standard under Linux, is somewhat
-dated. just an also be used anywhere on the command prompt, scripts can be made executable with it.
+just is a command runner. just resembles make, it is more light-weight though. It is designed to run recipes. just can also be used anywhere on the command prompt, uv scripts, notebooks, anything can be made executable with it. It is even possible to embed Python code in justfiles.
 
 Python, git and Jupyter are assumed to be known and installed.
 
@@ -115,7 +114,7 @@ will be reflected in the installed package.
 Or, if you have installed just:
 
 ```sh
-just install
+just pip-install
 ```
 
 If you changed the scripts in pyproject.toml, you have to reinstall the project.
@@ -185,7 +184,13 @@ just remove-origin
 If you want to run Jupyter notebooks, check the notebooks directory. There you will find an example notebook that loads
 a SPARQL query using the package developed in this project.
 
-You can then add your own remote origin.
+Note the extra magic at the top of the notebook. This magic tells Jupyter to reload the modules when the notebook is
+executed. You need to re-import the modules when you change the code.
+
+Also, you can run notebooks from the command line:
+```sh
+just run-notebook ./notebooks/example.ipynb
+```
 
 ## Logging configuration
 Special attention has been paid to the logging configuration. The logging configuration can be found in the logging.yaml file.

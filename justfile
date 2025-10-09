@@ -4,10 +4,7 @@ set dotenv-load
 default:
   just --list
 
-robot-test:
-  @sh robot-test.sh
-
-install:
+pip-install:
   @uv pip install --editable .
 
 remove-origin:
@@ -21,3 +18,9 @@ solve-zebra:
 
 sparql-select: say-hello
   @uv run sparql-select -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.ttl -o output/out.csv
+
+update-requirements:
+    @uv pip freeze > requirements.txt
+
+run-notebook file:
+    @uv run jupyter execute {{file}}
