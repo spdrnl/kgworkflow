@@ -14,6 +14,7 @@ The project shows:
 - How to create your command line tools for these tasks.
 - How to execute a workflow of command line tools.
 - How to run Jupyter notebooks using developed Python modules.
+- How to automate Jupyter notebooks.
 - How to potentially distribute your project as a package.
 
 The project is structured in such a way that it can be used in a simple and more advanced way. 
@@ -195,7 +196,7 @@ just run-notebook ./notebooks/example.ipynb
 ## Logging configuration
 Special attention has been paid to the logging configuration. The logging configuration can be found in the logging.yaml file.
 
-Note that for the module kgworkflow.util.helper the log level has been set to DEBUG. Fine grained logging configuration can help debugging and error reporting. .
+Note that for the module kgworkflow.util.helper the log level has been set to DEBUG. Fine grained logging configuration can help debugging and error reporting.
 ## Easily distribute your project as a package
 
 uv can distribute your project as a package via for example PyPI. The command to upload your project as package to PyPI
