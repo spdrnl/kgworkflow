@@ -108,7 +108,7 @@ Just is more a command runner than a workflow engine. It shines in two ways:
 - Use it as repository for commands you are likely to forget otherwise.
 - Create simple recipes to automate task sequences you would otherwise do by hand.
 
-make is more advanced than just; for example it avoids running compilations if nothing changed. Just on the other hand is versatile, and can also easily be used outside development projects to create all kinds tools.
+make is more advanced than just; for example it avoids running compilations if nothing changed. Just on the other hand is versatile, and can also easily be used outside development projects to create all kinds of command line magic.
 ## Install your own command line tools
 
 With uv it is easy to install command line tools. See the project.scripts section in the pyproject.toml file. If you run
