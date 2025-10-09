@@ -31,7 +31,7 @@ All these tools are available for Windows, macOS and Linux.
 
 uv is a tool that makes it easy to manage Python projects. It is a wrapper around pip and virtualenv. It is a newer version of a tool called Poetry. 
 
-just is a command runner. just resembles make, it is more light-weight though. It is designed to run recipes. just can also be used anywhere on the command prompt, uv scripts, notebooks, anything can be made executable with it. It is even possible to embed Python code in justfiles.
+just is a command runner. just resembles make, it is more light-weight though. It is designed to run recipes. just can also be used anywhere on the command prompt. uv scripts, notebooks, anything can be made executable with it. It is even possible to embed Python code in justfiles.
 
 Python, git and Jupyter are assumed to be known and installed.
 
