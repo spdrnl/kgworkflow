@@ -208,3 +208,7 @@ is about as complex as:
 ```sh
 uv publish
 ```
+
+For example, a single project could have a set of SPARQL tools, ASK, SELECT, CONSTRUCT, validate and format for example. If you upload such project to PyPI, then you can readily install it and use it in a different project.
+
+Software quality requires reuse. Tools are designed to do just that. If you want quality software, consider thinking in tools.
