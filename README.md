@@ -69,7 +69,10 @@ Open the env-RENAME-ME file and follow the instructions. Next execute the follow
 uv venv
 uv sync
 ```
-
+or:
+```sh
+just install-project
+```
 ### Run tests
 
 With uv tests can be run as follows:
