@@ -15,6 +15,10 @@ import rdflib.query as query
 logger = logging.getLogger(__name__)
 
 
+class UserException(Exception):
+    pass
+
+
 def sparql_ask(graph: Graph, sparql: str) -> bool:
     """
     Executes a SPARQL ASK query on the given RDF graph and returns the result as
@@ -28,7 +32,13 @@ def sparql_ask(graph: Graph, sparql: str) -> bool:
     :return: The boolean result of the SPARQL ASK query.
     :rtype: bool
     """
-    result = graph.query(sparql)
+
+    try:
+        result = graph.query(sparql)
+    except Exception as ex:
+        logger.error(f"\r\n{sparql}")
+        raise UserException(f"The SPARQL query failed to execute.") from ex
+
     return result.askAnswer
 
 
@@ -55,7 +65,12 @@ def sparql_select(graph: Graph, sparql: str, to_df: bool = True) -> Union[DataFr
         an RDFLib query.result instance containing the raw query results.
     :rtype: Union[DataFrame, query.Result]
     """
-    sparql_result = graph.query(sparql)
+    try:
+        sparql_result = graph.query(sparql)
+    except Exception as ex:
+        logger.error(f"\r\n{sparql}")
+        raise UserException(f"The SPARQL query failed to execute.") from ex
+
     if to_df:
         df_result = sr2df(sparql_result)
         normalized_df_result = normalize_uris(df_result, graph.namespace_manager)
@@ -147,7 +162,7 @@ def infer_graph(graph: Graph, reasoner: str = 'hermit') -> Graph:
     return result
 
 
-def infer_file(input_file:str, output_file: str, reasoner: str) -> None:
+def infer_file(input_file: str, output_file: str, reasoner: str) -> None:
     """
     Executes reasoning on an input ontology file using a specified reasoner and
     writes the inferred ontology to an output file. The reasoning process
@@ -198,8 +213,13 @@ def get_kg(filename: str) -> Graph:
     :return: Graph object representing the parsed RDF data.
     :rtype: Graph
     """
+
+    if not os.path.exists(filename):
+        raise UserException(f"The input Turtle file {filename} does not exist.")
+
     g = Graph()
     g.parse(filename, format="turtle")
+
     return g
 
 
@@ -212,6 +232,10 @@ def get_sparql(filename: str) -> str:
     :return: The content of the SPARQL query file as a string.
     :rtype: str
     """
+
+    if not os.path.exists(filename):
+        raise UserException(f"The SPARQL query file {filename} does not exist.")
+
     with open(filename) as f:
         return f.read()
 

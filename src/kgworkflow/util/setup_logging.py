@@ -37,3 +37,4 @@ def setup_logging(
         logging.config.dictConfig(configuration)
     else:
         logging.basicConfig(level=default_level)
+        print('Failed to load log configuration file. Using default configs.')

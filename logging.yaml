@@ -4,14 +4,12 @@ disable_existing_loggers: False
 formatters:
   simple:
     format: "%(asctime)s %(levelname)s %(name)s - %(message)s"
-
 handlers:
   console:
     class: logging.StreamHandler
     level: DEBUG
     formatter: simple
     stream: ext://sys.stdout
-
   info_file_handler:
     class: logging.handlers.RotatingFileHandler
     level: INFO
@@ -19,7 +17,6 @@ handlers:
     filename: logs/info.log
     mode: w
     encoding: utf8
-
   error_file_handler:
     class: logging.handlers.RotatingFileHandler
     level: ERROR
@@ -27,7 +24,6 @@ handlers:
     filename: logs/error.log
     mode: w
     encoding: utf8
-
   debug_file_handler:
     class: logging.handlers.RotatingFileHandler
     level: DEBUG
@@ -35,13 +31,18 @@ handlers:
     filename: logs/debug.log
     mode: w
     encoding: utf8
-
+root:
+  level: DEBUG
+  handlers:
+    - console
+    - info_file_handler
+    - error_file_handler
 loggers:
   kgworkflow.util.helper:
     level: DEBUG
-    handlers: [console, debug_file_handler]
+    handlers:
+      - console
+      - debug_file_handler
+      - info_file_handler
+      - error_file_handler
     propagate: no
-
-root:
-  level: INFO
-  handlers: [console, info_file_handler, error_file_handler]

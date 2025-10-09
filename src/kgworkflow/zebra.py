@@ -1,7 +1,7 @@
 import logging
 import time
 
-from kgworkflow.util.helper import infer_graph, get_kg, output_ttl, sparql_select, get_sparql
+from kgworkflow.util.helper import infer_graph, get_kg, output_ttl, sparql_select, get_sparql, UserException
 
 from dotenv import load_dotenv
 
@@ -39,4 +39,7 @@ def main():
     print(df.to_markdown())
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except UserException as e:
+        logger.error(e)

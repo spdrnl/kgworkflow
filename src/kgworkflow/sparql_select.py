@@ -6,7 +6,7 @@ import time
 from dotenv import load_dotenv
 from pandas import DataFrame
 
-from kgworkflow.util.helper import get_sparql, sparql_select, get_kg
+from kgworkflow.util.helper import get_sparql, sparql_select, get_kg, UserException
 from kgworkflow.util.setup_logging import setup_logging
 
 # Get settings from .env
@@ -15,6 +15,7 @@ load_dotenv()
 # Logging
 setup_logging()
 logger = logging.getLogger(__name__)
+
 
 def get_args() -> argparse.Namespace:
     """
@@ -75,15 +76,6 @@ def main():
     logger.info(f"Input file: {input_file}")
     logger.info(f"Output file: {output_file}")
 
-    # Check if files exist
-    if not os.path.exists(query_file):
-        logger.error(f"Query file {query_file} does not exist.")
-        exit(1)
-
-    if not os.path.exists(input_file):
-        logger.error(f"Input file {input_file} does not exist.")
-        exit(1)
-
     # Execute the query
     start_time = time.time()
 
@@ -136,4 +128,7 @@ def run_query(input_file, query_file) -> DataFrame:
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except UserException as e:
+        logger.error(e)
