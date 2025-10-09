@@ -133,7 +133,7 @@ sparql-select -h
 sparql-select -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.ttl -o out.csv
 ```
 
-## Getting you feet wet
+## Getting your feet wet
 
 To show how these tools all tie together, let's execute a SPARQL query. If you installed all the tools as described
 above, you can execute a command to do this in four different ways.
