@@ -2,7 +2,7 @@ import logging
 import os
 import tempfile
 
-from kgworkflow.util.helper import reason, get_kg, sparql_select, get_sparql, sparql_ask, output_ttl, write_ttl
+from kgworkflow.util.helper import infer_graph, get_kg, sparql_select, get_sparql, sparql_ask, output_ttl, write_ttl
 from dotenv import load_dotenv
 
 from kgworkflow.util.setup_logging import setup_logging
@@ -29,7 +29,7 @@ def test_get_kg():
 
 def test_reason_hermit():
     query = get_sparql("test/resources/sparql/ask-red-toy.sparql")
-    kb = reason(get_kg(TOY), reasoner='hermit')
+    kb = infer_graph(get_kg(TOY), reasoner='hermit')
     output_ttl(kb)
     result = sparql_ask(graph=kb, sparql=query)
     assert result == True

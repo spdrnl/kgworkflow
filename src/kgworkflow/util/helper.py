@@ -3,11 +3,14 @@ import os
 import subprocess
 import tempfile
 from pathlib import Path
+from typing import Union
 
 from pandas import DataFrame
 from rdflib import Graph, URIRef, Namespace
+from rdflib.namespace import NamespaceManager
 from rdflib.plugins.sparql.processor import SPARQLResult
 import pandas as pd
+import rdflib.query as query
 
 logger = logging.getLogger(__name__)
 
@@ -29,28 +32,39 @@ def sparql_ask(graph: Graph, sparql: str) -> bool:
     return result.askAnswer
 
 
-def sparql_select(graph: Graph, sparql: str) -> DataFrame:
+def sparql_select(graph: Graph, sparql: str, to_df: bool = True) -> Union[DataFrame, query.Result]:
     """
-    Executes a SPARQL SELECT query on the given graph and returns the results as a
-    normalized DataFrame. The method utilizes helper functions to convert the
-    SPARQL query results into a pandas DataFrame format and normalizes URIs within
-    the DataFrame according to the graph context.
+    Executes a SPARQL SELECT query on the given RDF graph and returns the result
+    either as a pandas DataFrame or as an RDFLib query result, depending on the
+    `to_df` flag.
 
-    :param graph: The RDF graph on which the SPARQL query will be executed.
+    :param graph: The RDFLib Graph instance on which the SPARQL query is
+        executed.
     :type graph: Graph
-    :param sparql: The SPARQL query string to be executed on the RDF graph.
+
+    :param sparql: The SPARQL SELECT query to be executed on the RDF graph.
     :type sparql: str
-    :return: A DataFrame containing the results of the executed SPARQL query with
-        normalized URIs.
-    :rtype: DataFrame
+
+    :param to_df: A boolean flag indicating whether to convert the query results
+        to a pandas DataFrame (True) or return them as RDFLib query results
+        (False). Defaults to True.
+    :type to_df: bool
+
+    :return: If `to_df` is True, returns a pandas DataFrame representation of the
+        SPARQL query result with normalized URIs. If `to_df` is False, returns
+        an RDFLib query.result instance containing the raw query results.
+    :rtype: Union[DataFrame, query.Result]
     """
-    sparqlResult = graph.query(sparql)
-    df_result = sparql_results_to_df(sparqlResult)
-    normalized_df_result = normalize_uris(df_result, graph)
-    return normalized_df_result
+    sparql_result = graph.query(sparql)
+    if to_df:
+        df_result = sr2df(sparql_result)
+        normalized_df_result = normalize_uris(df_result, graph.namespace_manager)
+        return normalized_df_result
+    else:
+        return sparql_result
 
 
-def sparql_results_to_df(results: SPARQLResult) -> DataFrame:
+def sr2df(results: query.Result) -> DataFrame:
     """
     Converts a SPARQL query result set into a pandas DataFrame. The utility extracts
     values from SPARQLResult rows and converts them into a tabular format. Each
@@ -63,6 +77,7 @@ def sparql_results_to_df(results: SPARQLResult) -> DataFrame:
         bindings transformed to their Python-native types.
     :rtype: DataFrame
     """
+
     def get_value(x):
         if x is None:
             return None
@@ -77,75 +92,97 @@ def sparql_results_to_df(results: SPARQLResult) -> DataFrame:
     )
 
 
-def normalize_uris(df: DataFrame, graph: Graph) -> DataFrame:
+def normalize_uris(df: DataFrame, nsm: NamespaceManager) -> DataFrame:
     """
-    Normalizes URIs in a DataFrame using the namespace manager of a provided RDF graph.
+    Normalizes URIs in a DataFrame by converting them using the given NamespaceManager.
 
-    This function takes a DataFrame and an RDF graph as inputs. It applies the
-    namespace manager from the graph to normalize any `URIRef` values found in
-    the DataFrame. Non-`URIRef` values remain unchanged.
+    This function iterates over the elements of the DataFrame, and for each element
+    that is a URIRef, it normalizes it using the NamespaceManager. If an element is
+    not a URIRef, it remains unmodified. The normalized DataFrame is then returned.
 
-    :param df: The input DataFrame containing data to be processed.
+    :param df: The DataFrame to process. Expected to contain values of type URIRef or
+        other types that do not require normalization.
     :type df: DataFrame
-    :param graph: The RDF graph providing the namespace manager for URI normalization.
-    :type graph: Graph
-    :return: A DataFrame with normalized URIs, where applicable.
+    :param nsm: The NamespaceManager instance used to normalize URIs.
+    :type nsm: NamespaceManager
+    :return: A DataFrame where all URIRef elements have been normalized using the
+        provided NamespaceManager. Non-URIRef elements are unmodified.
     :rtype: DataFrame
     """
-    nm = graph.namespace_manager
 
     def convert_uri(val):
         if isinstance(val, URIRef):
-            return nm.normalizeUri(val)
+            return nsm.normalizeUri(val)
         return val
 
     return df.map(convert_uri)
 
 
-def reason(graph: Graph, reasoner: str = 'hermit') -> Graph:
+def infer_graph(graph: Graph, reasoner: str = 'hermit') -> Graph:
     """
-    Applies reasoning to an RDF graph using the ROBOT command-line tool and a specified reasoner.
+    Performs reasoning on a given RDF graph using a specified OWL reasoner
+    and returns the inferred graph. The reasoning process entails taking
+    the input graph, running the reasoner to deduce additional triples
+    based on the ontology, and then returning the extended graph.
 
-    The function reads an input RDF graph, reasons over it using the specified
-    reasoning engine, and produces an augmented RDF graph with inferred triples.
-    It leverages the ROBOT environment variable for accessing the command-line
-    tool, and the tool's reasoning options are configured appropriately.
+    The function uses serialized files to interact with the reasoner,
+    and the reasoning is performed on temporary files created during
+    runtime. After reasoning, the inferred graph is deserialized and
+    returned.
 
-    :param graph: An RDF graph that will serve as the input for reasoning.
+    :param graph: The RDF graph to be inferred.
     :type graph: Graph
-    :param reasoner: The reasoning engine to use, such as 'hermit' or other supported tools. Defaults to 'hermit'.
+    :param reasoner: The name of the OWL reasoner. Defaults to 'hermit'.
     :type reasoner: str
-    :return: A new RDF graph containing the input data alongside inferred triples.
+    :return: A graph containing the input triples and the inferred ones.
     :rtype: Graph
     """
-
-    ROBOT = os.getenv("ROBOT")
-    if not ROBOT:
-        logger.error("ROBOT environment variable not set")
-        raise Exception("ROBOT environment variable not set")
-
     result = Graph()
     with tempfile.NamedTemporaryFile(suffix=".ttl", delete=True) as input_file:
         with tempfile.NamedTemporaryFile(suffix=".ttl", delete=True) as output_file:
             graph.serialize(input_file.name, format="turtle")
             input_file.flush()
-            res = subprocess.run(
-                [
-                    ROBOT, "reason",
-                    "--input", input_file.name,
-                    "--output", output_file.name,
-                    "--create-new-ontology", "true",
-                    "--equivalent-classes-allowed", "all",
-                    "--include-indirect", "true",
-                    "--axiom-generators",
-                    "\"SubClass EquivalentClass DisjointClasses ClassAssertion PropertyAssertion\"",
-                    "--reasoner", reasoner,
-                ],
-                capture_output=True,
-                text=True,
-            )
+            infer_file(input_file.name, output_file.name, reasoner)
             result.parse(output_file.name, format="turtle")
     return result
+
+
+def infer_file(input_file:str, output_file: str, reasoner: str) -> None:
+    """
+    Executes reasoning on an input ontology file using a specified reasoner and
+    writes the inferred ontology to an output file. The reasoning process
+    relies on the ROBOT command-line tool, which must be accessible via the
+    `ROBOT` environment variable.
+
+    :param input_file: The file containing the input ontology.
+    :type input_file: str
+    :param output_file: The file where the inferred ontology will be written.
+    :type output_file: str
+    :param reasoner: The reasoning engine to be used (e.g., ELK, Hermit).
+    :type reasoner: str
+    :return: None
+    :raises Exception: If the ROBOT environment variable is not set.
+    """
+    ROBOT = os.getenv("ROBOT")
+    if not ROBOT:
+        logger.error("ROBOT environment variable not set. You can configure it in .env.")
+        raise Exception("ROBOT environment variable not set")
+
+    res = subprocess.run(
+        [
+            ROBOT, "reason",
+            "--input", input_file,
+            "--output", output_file,
+            "--create-new-ontology", "true",
+            "--equivalent-classes-allowed", "all",
+            "--include-indirect", "true",
+            "--axiom-generators",
+            "\"SubClass EquivalentClass DisjointClasses ClassAssertion PropertyAssertion\"",
+            "--reasoner", reasoner,
+        ],
+        capture_output=True,
+        text=True,
+    )
 
 
 def get_kg(filename: str) -> Graph:

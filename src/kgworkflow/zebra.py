@@ -1,7 +1,7 @@
 import logging
 import time
 
-from kgworkflow.util.helper import reason, get_kg, output_ttl, sparql_select, get_sparql
+from kgworkflow.util.helper import infer_graph, get_kg, output_ttl, sparql_select, get_sparql
 
 from dotenv import load_dotenv
 
@@ -23,7 +23,7 @@ def main():
 
     logger.info("Running reasoner.")
     # See robot-test.sh for example robot config, not standard.
-    inferred_kg = reason(kg, reasoner="hermit")
+    inferred_kg = infer_graph(kg, reasoner="hermit")
 
     logger.info("Writing results to out.ttl for verification.")
     output_ttl(inferred_kg)
