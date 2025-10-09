@@ -3,10 +3,10 @@ set dotenv-load := true
 default:
     just --list
 
-install-project:
+# Runs pip-install after.
+install-project: && pip-install
     @uv venv
     @uv sync
-    @uv pip install --editable .
 
 pip-install:
     @uv pip install --editable .
@@ -19,6 +19,7 @@ remove-origin:
 
 say-hello:
     @echo "Hello!"
+    @just default
 
 solve-zebra:
     @uv run solve-zebra

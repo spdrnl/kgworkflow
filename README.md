@@ -144,7 +144,7 @@ Execute a SPARQL query using the Python interpreter:
 python -m kgworkflow.sparql_select  -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.ttl -o out.csv
 ```
 
-Execute a SPARQL query using uv as a uv script:
+Execute a SPARQL query using uv as a uv script, see pyproject.toml for more information:
 
 ```sh
 uv run sparql-select -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.ttl -o out.csv
