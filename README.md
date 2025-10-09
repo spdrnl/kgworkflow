@@ -105,7 +105,7 @@ For a crash course see: https://www.youtube.com/watch?v=W3pSSVwx--k
 Here is a real enthousiast: https://www.youtube.com/watch?v=R6gBWDlQowM&t=60s
 
 Just is more a command runner than a workflow engine. It shines in two ways:
-- Use it as repository for command you are likely to forget otheriwse
+- Use it as repository for commands you are likely to forget otherwise.
 - Create simple recipes to automate task sequences you would otherwise do by hand.
 
 make is more advanced that just; for example it avoids running compilations if nothing changed. Just on the other hand is versatile, and can also easily be used outside development projects to create all kinds tools.
