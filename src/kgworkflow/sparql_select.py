@@ -80,13 +80,13 @@ def main():
     start_time = time.time()
 
     df = run_query(input_file, query_file)
-    write_output(df, output_file)
+    write_csv(df, output_file)
 
     end_time = time.time()
     logger.info(f"Done in {end_time - start_time:0.3f} seconds.")
 
 
-def write_output(df, output_file):
+def write_csv(df, output_file):
     """
     Writes the provided dataframe to a CSV file at the specified location.
 
@@ -104,7 +104,7 @@ def write_output(df, output_file):
     try:
         df.to_csv(output_file, header=True, index=False)
     except Exception as e:
-        logger.error(f"Could not write output to {output_file}: {e}.")
+        raise UserException(f"Could not write csv output to {output_file}: {e}.") from e
 
 
 def run_query(input_file, query_file) -> DataFrame:
