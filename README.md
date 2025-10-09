@@ -96,6 +96,11 @@ A quick overview of uv commands is available at: https://docs.astral.sh/uv/getti
 
 For a crash course see: https://www.youtube.com/watch?v=zgSQr0d5EVg
 
+To add a package to your project use:
+```sh
+uv add pandas
+```
+
 ## Install just
 
 To install just see: https://just.systems/man/en/
