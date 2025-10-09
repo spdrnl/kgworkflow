@@ -294,10 +294,15 @@ def write_ttl(graph: Graph, filename: str, default_ns: Namespace = None, base: s
     :return: This method does not return any value.
     :rtype: None
     """
-    logger.debug(f"Writing graph to {filename}")
+    logger.info(f"Writing graph to {filename}.")
+    logger.info(f"Using default namespace {default_ns}.")
+    logger.info(f"And base URI {base}.")
 
     if default_ns:
         graph.bind("", default_ns)
 
-    with open(filename, "wb") as f:
-        graph.serialize(f, format="turtle", base=base)
+    try:
+        with open(filename, "wb") as f:
+            graph.serialize(f, format="turtle", base=base)
+    except Exception as ex:
+        raise UserException(f"Could not write graph to {filename}: {ex}.") from ex
