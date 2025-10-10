@@ -200,7 +200,7 @@ just remove-origin
 If you want to run Jupyter notebooks, check the notebooks directory. There you will find an example notebook that loads
 a SPARQL query using the package developed in this project.
 
-Note the extra magic at the top of the notebook. This magic tells Jupyter to reload the modules when the notebook is
+Note the extra magic (this is an official term for commands that start with %) at the top of the notebook. This magic tells Jupyter to reload the modules when the notebook is
 executed. You need to re-import the modules when you change the code.
 
 Also, you can run notebooks from the command line:
