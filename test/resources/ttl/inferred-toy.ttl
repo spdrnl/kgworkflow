@@ -2,17 +2,12 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-:green_ball a :Toy,
-        owl:NamedIndividual,
-        owl:Thing ;
+:green_ball a :Toy , owl:NamedIndividual , owl:Thing ;
     :has_color "green" .
 
 :has_color a owl:DatatypeProperty .
 
-:red_ball a :RedToy,
-        :Toy,
-        owl:NamedIndividual,
-        owl:Thing ;
+:red_ball a :RedToy , :Toy , owl:NamedIndividual , owl:Thing ;
     :has_color "red" .
 
 :RedToy a owl:Class ;
@@ -24,4 +19,3 @@
     owl:disjointWith owl:Nothing .
 
 [] a owl:Ontology .
-
