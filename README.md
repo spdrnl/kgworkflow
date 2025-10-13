@@ -77,10 +77,8 @@ Open the env-RENAME-ME file and follow the instructions. Next execute the follow
 uv venv
 uv sync
 ```
-or:
-```sh
-just install-project
-```
+
+The first command creates a virtual environment. The second command installs the project in the virtual environment. just, taskfile and turtlefmt are installed as well through PyPI.
 ### Run tests
 
 With uv tests can be run as follows:
@@ -109,7 +107,7 @@ To add a package to your project use:
 uv add pandas
 ```
 
-## Install just
+## just primer
 
 just is installed for your project through uv. If you ran 'uv sync' then you are good to go.
 
@@ -123,7 +121,14 @@ Just is more a command runner than a workflow engine. It shines in two ways:
 
 make is more advanced than just; for example it avoids running compilations if nothing changed. Just on the other hand is versatile, and can also easily be used outside development projects to create all kinds of command line magic.
 
-## Install task
+To see how just can be used to automate workflows, see the justfile in the project. For example, you can run:
+```sh
+just run-test
+```
+
+This will run pytest.
+
+## task primer
 task is installed for your project through uv. If you ran 'uv sync' then you are good to go. For more information see: https://taskfile.dev/
 
 ###
@@ -133,8 +138,7 @@ Try running the following task twice:
 ```sh
 task hermit
 ```
-
-You will see that the second time around task will notify you that the task is up to date.
+The hermit task will run a reasoner over the a small toy ontology and output the result to a file in the output directory. You will see that the second time around task will notify you that the task is up to date. This is because the ontology did not change since the last run. This way you can easily create a workflow that only runs tasks that are necessary once you made changes to your project.
 
 ## Install your own command line tools
 

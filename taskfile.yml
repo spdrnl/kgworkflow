@@ -6,6 +6,7 @@ tasks:
   default:
     cmds:
       - echo "Hello world!"
+    silent: true
 
   hermit:
     sources:
