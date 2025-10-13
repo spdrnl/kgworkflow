@@ -217,6 +217,11 @@ or
 just remove-origin
 ```
 
+Also, as you are going to make changes to your repo, install the git pre-commit hooks. These hooks format your Python and Jupyter notebook files so that if someone else clones the repo, all the files look neat:
+
+```sh
+pre-commit install
+```
 ## Format your turtle files
 Also installed through uv is turtlefmt, a formatter for turtle files. To format your turtle files, run:
 ```sh
