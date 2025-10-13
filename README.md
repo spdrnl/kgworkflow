@@ -27,6 +27,7 @@ The tools that are used in the examples are:
 - uv
 - just
 - taskfile
+- turtlefmt
 - jupyter
 - git
 
@@ -37,6 +38,8 @@ uv is a tool that makes it easy to manage Python projects. It is a wrapper aroun
 just is a command runner. just resembles make, it is more light-weight though. It is designed to run recipes. just can also be used anywhere on the command prompt. uv scripts, notebooks, anything can be made executable with it. It is even possible to embed Python code in justfiles.
 
 Once you workflow gets a big bigger, and you want to avoid running longer running tasks unnecessary, then taskfile can help you out. taskfile allows you to plan your whole workflow, and rerun necessary steps after you made changes to your project.
+
+turtlefmt formats and validates your turtle files. This adds extra assurance to a publication process.
 
 Python, git and Jupyter are assumed to be known and installed.
 
@@ -213,6 +216,17 @@ or
 ```sh
 just remove-origin
 ```
+
+## Format your turtle files
+Also installed is turtlefmt, a formatter for turtle files. To format your turtle files, run:
+```sh
+turtlefmt test/resources/ttl/ src/resources/ttl output
+```
+or:
+```sh
+just format-turtle
+```
+turtlefmt is also written in Rust, so it is very fast.
 
 ## Running notebooks
 

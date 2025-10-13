@@ -40,3 +40,6 @@ run-python:
 
 run-ruff:
     pre-commit run --all-files
+
+format-turtle:
+    @turtlefmt test/resources/ttl/ src/resources/ttl output
