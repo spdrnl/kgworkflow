@@ -142,7 +142,7 @@ sparql-select -h
 ```
 
 ```sh
-sparql-select -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.ttl -o out.csv
+sparql-select -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.ttl -o output/out.csv
 ```
 
 ## Getting your feet wet
@@ -153,19 +153,19 @@ above, you can execute a command to do this in four different ways.
 Execute a SPARQL query using the Python interpreter:
 
 ```sh
-python -m kgworkflow.sparql_select  -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.ttl -o out.csv
+python -m kgworkflow.sparql_select  -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.ttl -o output/out.csv
 ```
 
 Execute a SPARQL query using a uv script, see pyproject.toml for more information:
 
 ```sh
-uv run sparql-select -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.ttl -o out.csv
+uv run sparql-select -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.ttl -o output/out.csv
 ```
 
 Execute a SPARQL query as a command line tool if you installed the project as a package using pip:
 
 ```sh
-sparql-select -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.ttl -o out.csv
+sparql-select -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.ttl -o output/out.csv
 ```
 
 Execute a SPARQL query as part of a workflow using just:
