@@ -222,6 +222,9 @@ Also, as you are going to make changes to your repo, install the git pre-commit 
 ```sh
 pre-commit install
 ```
+
+Here is a controversial opinion: pre-commit hooks are over used. It is really better for everyone if these hooks are configured to run on the server side. The number of hours spent by developers committing changes twice because a formatter or linter was complaining is staggering. Better to just format files on the server side.
+
 ## Format your turtle files
 Also installed through uv is turtlefmt, a formatter for turtle files. To format your turtle files, run:
 ```sh
