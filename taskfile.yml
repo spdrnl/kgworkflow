@@ -1,14 +1,11 @@
 version: '3'
 
-env:
-  ENV: testing
-
 dotenv: ['.env']
 
 tasks:
   default:
     cmds:
-      - echo "{{.GREETING}}"
+      - echo "Hello world!"
 
   hermit:
     sources:
