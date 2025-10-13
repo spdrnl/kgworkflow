@@ -8,7 +8,6 @@ from typing import Union
 from pandas import DataFrame
 from rdflib import Graph, URIRef, Namespace
 from rdflib.namespace import NamespaceManager
-from rdflib.plugins.sparql.processor import SPARQLResult
 import pandas as pd
 import rdflib.query as query
 
@@ -37,12 +36,14 @@ def sparql_ask(graph: Graph, sparql: str) -> bool:
         result = graph.query(sparql)
     except Exception as ex:
         logger.error(f"\r\n{sparql}")
-        raise UserException(f"The SPARQL query failed to execute.") from ex
+        raise UserException("The SPARQL query failed to execute.") from ex
 
     return result.askAnswer
 
 
-def sparql_select(graph: Graph, sparql: str, to_df: bool = True) -> Union[DataFrame, query.Result]:
+def sparql_select(
+    graph: Graph, sparql: str, to_df: bool = True
+) -> Union[DataFrame, query.Result]:
     """
     Executes a SPARQL SELECT query on the given RDF graph and returns the result
     either as a pandas DataFrame or as an RDFLib query result, depending on the
@@ -69,7 +70,7 @@ def sparql_select(graph: Graph, sparql: str, to_df: bool = True) -> Union[DataFr
         sparql_result = graph.query(sparql)
     except Exception as ex:
         logger.error(f"\r\n{sparql}")
-        raise UserException(f"The SPARQL query failed to execute.") from ex
+        raise UserException("The SPARQL query failed to execute.") from ex
 
     if to_df:
         df_result = sr2df(sparql_result)
@@ -103,7 +104,7 @@ def sr2df(results: query.Result) -> DataFrame:
 
     return pd.DataFrame(
         data=([get_value(x) for x in row] for row in results),
-        columns=[str(x) for x in results.vars]
+        columns=[str(x) for x in results.vars],
     )
 
 
@@ -133,7 +134,7 @@ def normalize_uris(df: DataFrame, nsm: NamespaceManager) -> DataFrame:
     return df.map(convert_uri)
 
 
-def infer_graph(graph: Graph, reasoner: str = 'hermit') -> Graph:
+def infer_graph(graph: Graph, reasoner: str = "hermit") -> Graph:
     """
     Performs reasoning on a given RDF graph using a specified OWL reasoner
     and returns the inferred graph. The reasoning process entails taking
@@ -180,20 +181,30 @@ def infer_file(input_file: str, output_file: str, reasoner: str) -> None:
     """
     ROBOT = os.getenv("ROBOT")
     if not ROBOT:
-        logger.error("ROBOT environment variable not set. You can configure it in .env.")
+        logger.error(
+            "ROBOT environment variable not set. You can configure it in .env."
+        )
         raise Exception("ROBOT environment variable not set")
 
-    res = subprocess.run(
+    # If you want the results, use res = subprocess.run(
+    subprocess.run(
         [
-            ROBOT, "reason",
-            "--input", input_file,
-            "--output", output_file,
-            "--create-new-ontology", "true",
-            "--equivalent-classes-allowed", "all",
-            "--include-indirect", "true",
+            ROBOT,
+            "reason",
+            "--input",
+            input_file,
+            "--output",
+            output_file,
+            "--create-new-ontology",
+            "true",
+            "--equivalent-classes-allowed",
+            "all",
+            "--include-indirect",
+            "true",
             "--axiom-generators",
-            "\"SubClass EquivalentClass DisjointClasses ClassAssertion PropertyAssertion\"",
-            "--reasoner", reasoner,
+            '"SubClass EquivalentClass DisjointClasses ClassAssertion PropertyAssertion"',
+            "--reasoner",
+            reasoner,
         ],
         capture_output=True,
         text=True,
@@ -274,7 +285,9 @@ def output_ttl(graph: Graph) -> None:
     write_ttl(graph, output_file, default_ns, base)
 
 
-def write_ttl(graph: Graph, filename: str, default_ns: Namespace = None, base: str = None) -> None:
+def write_ttl(
+    graph: Graph, filename: str, default_ns: Namespace = None, base: str = None
+) -> None:
     """
     Writes an RDF graph to a Turtle (.ttl) file with optional default namespace
     and base URI configuration.

@@ -1,6 +1,5 @@
 import argparse
 import logging
-import os
 import time
 
 from dotenv import load_dotenv
@@ -30,28 +29,23 @@ def get_args() -> argparse.Namespace:
     """
     # Initialize
     parser = argparse.ArgumentParser(
-        description='The program executes a SPARQL query file against a Turtle file and outputs the results as CSV.',
-        epilog='Happy querying!',
-        prog="sparql-select")
+        description="The program executes a SPARQL query file against a Turtle file and outputs the results as CSV.",
+        epilog="Happy querying!",
+        prog="sparql-select",
+    )
 
     # Adding optional parameters
-    parser.add_argument('-q',
-                        '--query-file',
-                        help="SPARQL query file.",
-                        required=True,
-                        type=str)
+    parser.add_argument(
+        "-q", "--query-file", help="SPARQL query file.", required=True, type=str
+    )
 
-    parser.add_argument('-i',
-                        '--input-file',
-                        help="Turtle input file.",
-                        required=True,
-                        type=str)
+    parser.add_argument(
+        "-i", "--input-file", help="Turtle input file.", required=True, type=str
+    )
 
-    parser.add_argument('-o',
-                        '--output-file',
-                        help="Csv output file.",
-                        required=True,
-                        type=str)
+    parser.add_argument(
+        "-o", "--output-file", help="Csv output file.", required=True, type=str
+    )
 
     return parser.parse_args()
 
@@ -100,7 +94,7 @@ def write_csv(df, output_file):
     :type output_file: str
     :return: None
     """
-    logger.info(f"Writing output.")
+    logger.info("Writing output.")
     try:
         df.to_csv(output_file, header=True, index=False)
     except Exception as e:
@@ -122,7 +116,7 @@ def run_query(input_file, query_file) -> DataFrame:
     """
     query = get_sparql(query_file)
     kg = get_kg(input_file)
-    logger.info(f"Starting query.")
+    logger.info("Starting query.")
     df = sparql_select(kg, query)
     return df
 

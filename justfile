@@ -37,3 +37,6 @@ run-python:
     #!/usr/bin/env -S uv run --script --quiet
     from kgworkflow.util.helper import get_sparql
     print(get_sparql("src/resources/sparql/zebra.sparql"))
+
+run-ruff:
+    pre-commit run --all-files

@@ -1,7 +1,14 @@
 import logging
 import time
 
-from kgworkflow.util.helper import infer_graph, get_kg, output_ttl, sparql_select, get_sparql, UserException
+from kgworkflow.util.helper import (
+    infer_graph,
+    get_kg,
+    output_ttl,
+    sparql_select,
+    get_sparql,
+    UserException,
+)
 
 from dotenv import load_dotenv
 
@@ -14,8 +21,8 @@ load_dotenv()
 setup_logging()
 logger = logging.getLogger(__name__)
 
-def main():
 
+def main():
     start_time = time.time()
 
     logger.info("Read Turtle file.")
@@ -37,6 +44,7 @@ def main():
     logger.info(f"Solved in {end_time - start_time:0.3f} seconds.")
 
     print(df.to_markdown())
+
 
 if __name__ == "__main__":
     try:
