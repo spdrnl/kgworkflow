@@ -98,6 +98,7 @@ rfc3986-validator==0.1.1
 rfc3987-syntax==1.1.0
 rpds-py==0.27.1
 ruff==0.14.0
+rust-just==1.43.0
 send2trash==1.8.3
 setuptools==80.9.0
 six==1.17.0
