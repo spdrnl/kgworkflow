@@ -1,9 +1,8 @@
 .env
-logs/error.log
-logs/info.log
-logs/debug.log
-output/out.ttl
-output/out.csv
+logs/*
+output/*
+.task/*
+
 
 # Python bytecode
 __pycache__/
