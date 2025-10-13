@@ -124,7 +124,7 @@ Just is more a command runner than a workflow engine. It shines in two ways:
 make is more advanced than just; for example it avoids running compilations if nothing changed. Just on the other hand is versatile, and can also easily be used outside development projects to create all kinds of command line magic.
 
 ## Install task
-task is installed for your project through uv. If you ran 'uv sync' then you are good to go.
+task is installed for your project through uv. If you ran 'uv sync' then you are good to go. For more information see: https://taskfile.dev/
 
 ###
 See the taskfile.yaml for how to execute commands in such a way that task remembers if a task does not need to be rerun. By specifying sources and generates settings, task can track if a source changed since the last run. Also see the status directive to programmatically decide if a task is up to date.
