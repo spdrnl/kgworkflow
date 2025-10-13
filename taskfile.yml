@@ -13,6 +13,7 @@ tasks:
   hermit:
     sources:
       - test/resources/ttl/toy.ttl
+      # You can add Python and bash files too.
     generates:
       - output/toy-inferred.ttl
     cmds:

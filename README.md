@@ -17,6 +17,8 @@ The project shows:
 - How to automate Jupyter notebooks.
 - How to potentially distribute your project as a package.
 
+A workflow going from notebook, to Python code, to commmand line tool is fully supported. The first two steps of this workflow are often mentioned, creating your command line tools though is less popular. Creating your tools does not only save you time in the log run, it also helps you to structure your project. Lastly. If you think in tools, then you making the step to the cloud is often small. All cloud environments support workflows that execute tools; whether it is Github, Azure, AWS or GCP.
+
 The project is structured in such a way that it can be used in a simple and more advanced way. 
 
 The tools that are used in the examples are:
@@ -24,6 +26,7 @@ The tools that are used in the examples are:
 - python
 - uv
 - just
+- taskfile
 - jupyter
 - git
 
@@ -32,6 +35,8 @@ All these tools are available for Windows, macOS and Linux.
 uv is a tool that makes it easy to manage Python projects. It is a wrapper around pip and virtualenv. It is a newer version of a tool called Poetry. 
 
 just is a command runner. just resembles make, it is more light-weight though. It is designed to run recipes. just can also be used anywhere on the command prompt. uv scripts, notebooks, anything can be made executable with it. It is even possible to embed Python code in justfiles.
+
+Once you workflow gets a big bigger, and you want to avoid running longer running tasks unnecessary, then taskfile can help you out. taskfile allows you to plan your whole workflow, and rerun necessary steps after you made changes to your project.
 
 Python, git and Jupyter are assumed to be known and installed.
 
@@ -103,7 +108,7 @@ uv add pandas
 
 ## Install just
 
-To install just see: https://just.systems/man/en/
+just is installed for your project through uv. If you ran 'uv sync' then you are good to go.
 
 For a crash course see: https://www.youtube.com/watch?v=W3pSSVwx--k
 
@@ -114,6 +119,20 @@ Just is more a command runner than a workflow engine. It shines in two ways:
 - Create simple recipes to automate task sequences you would otherwise do by hand.
 
 make is more advanced than just; for example it avoids running compilations if nothing changed. Just on the other hand is versatile, and can also easily be used outside development projects to create all kinds of command line magic.
+
+## Install task
+task is installed for your project through uv. If you ran 'uv sync' then you are good to go.
+
+###
+See the taskfile.yaml for how to execute commands in such a way that task remembers if a task does not need to be rerun. By specifying sources and generates settings, task can track if a source changed since the last run. Also see the status directive to programmatically decide if a task is up to date.
+
+Try running the following task twice:
+```sh
+task hermit
+```
+
+You will see that the second time around task will notify you that the task is up to date.
+
 ## Install your own command line tools
 
 With uv it is easy to install command line tools. See the project.scripts section in the pyproject.toml file. If you run
