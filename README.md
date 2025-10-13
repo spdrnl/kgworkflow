@@ -142,24 +142,24 @@ The hermit task will run a reasoner over the a small toy ontology and output the
 
 ## Install your own command line tools
 
-With uv it is easy to install command line tools. See the project.scripts section in the pyproject.toml file. If you run
-the command below, the command line tools will be installed in the project directory so that you can execute them from
+With uv it is easy to install your own Python command line tools. See the project.scripts section in the pyproject.toml file. If you run
+the command below, the command line tools configured in project.scripts will be installed in the project directory so that you can execute them from
 the project directory.
 
 ```sh
 uv pip install --editable .
 ```
 
-The --editable flag installs the project in editable mode; meaning you can make changes to the project and the changes
+The --editable flag installs the project and the project.scripts in editable mode; meaning you can make changes to the project and the changes
 will be reflected in the installed package.
 
-Or, if you have installed just:
+If you changed the scripts in pyproject.toml, you have to reinstall the project.
+
+If you have installed just:
 
 ```sh
 just pip-install
 ```
-
-If you changed the scripts in pyproject.toml, you have to reinstall the project.
 
 You can now execute:
 
@@ -170,6 +170,8 @@ sparql-select -h
 ```sh
 sparql-select -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.ttl -o output/out.csv
 ```
+
+This command line tool is part of the Python source code files.
 
 ## Getting your feet wet
 
