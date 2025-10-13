@@ -1,0 +1,27 @@
+version: '3'
+
+env:
+  ENV: testing
+
+dotenv: ['.env']
+
+tasks:
+  default:
+    cmds:
+      - echo "{{.GREETING}}"
+
+  hermit:
+    sources:
+      - test/resources/ttl/toy.ttl
+    generates:
+      - output/toy-inferred.ttl
+    cmds:
+      - | 
+        robot reason \
+        --input test/resources/ttl/toy.ttl \
+        --create-new-ontology true \
+        --equivalent-classes-allowed all \
+        --axiom-generators "SubClass EquivalentClass DisjointClasses ClassAssertion PropertyAssertion" \
+        --output output/toy-inferred.ttl \
+        --include-indirect true \
+        --reasoner hermit
