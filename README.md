@@ -218,7 +218,7 @@ just remove-origin
 ```
 
 ## Format your turtle files
-Also installed is turtlefmt, a formatter for turtle files. To format your turtle files, run:
+Also installed through uv is turtlefmt, a formatter for turtle files. To format your turtle files, run:
 ```sh
 turtlefmt test/resources/ttl/ src/resources/ttl output
 ```
