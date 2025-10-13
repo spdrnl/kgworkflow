@@ -31,7 +31,7 @@ The tools that are used in the examples are:
 - jupyter
 - git
 
-All these tools are available for Windows, macOS and Linux.
+All these tools are available for Windows, macOS and Linux. Note that for VS Code and Intellij all these tools have IDE plugins too.
 
 uv is a tool that makes it easy to manage Python projects. It is a wrapper around pip and virtualenv. It is a newer version of a tool called Poetry. 
 
