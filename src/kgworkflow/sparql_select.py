@@ -22,8 +22,6 @@ def get_args() -> argparse.Namespace:
     and outputs the results into a CSV file. Parses the provided arguments and validates their
     presence and expected types.
 
-    :raises SystemExit: If required arguments are missing or invalid arguments are passed.
-
     :return: Namespace object containing parsed command-line arguments.
     :rtype: argparse.Namespace
     """

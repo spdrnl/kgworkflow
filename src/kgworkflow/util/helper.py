@@ -35,6 +35,7 @@ def sparql_ask(graph: Graph, sparql: str) -> bool:
     try:
         result = graph.query(sparql)
     except Exception as ex:
+        logger.info(ex)
         logger.error(f"\r\n{sparql}")
         raise UserException("The SPARQL query failed to execute.") from ex
 
@@ -69,6 +70,7 @@ def sparql_select(
     try:
         sparql_result = graph.query(sparql)
     except Exception as ex:
+        logger.info(ex)
         logger.error(f"\r\n{sparql}")
         raise UserException("The SPARQL query failed to execute.") from ex
 
@@ -318,4 +320,5 @@ def write_ttl(
         with open(filename, "wb") as f:
             graph.serialize(f, format="turtle", base=base)
     except Exception as ex:
+        logger.info(ex)
         raise UserException(f"Could not write graph to {filename}: {ex}.") from ex
