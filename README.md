@@ -79,6 +79,13 @@ uv sync
 ```
 
 The first command creates a virtual environment. The second command installs the project in the virtual environment. just, taskfile and turtlefmt are installed as well through PyPI.
+
+If you are working in an IDE like VS Code or Intellij, then if you open a terminal, then the virtual environment will be activated automatically and tools like taskfile and just will be available. .
+
+Alternatively, you can activate the virtual environment manually:
+```sh
+source .venv/bin/activate
+```
 ### Run tests
 
 With uv tests can be run as follows:
