@@ -12,7 +12,7 @@ pip-install:
     @uv pip install --editable .
 
 install-arq:
-    echo "Installing Apache Jena in ext-bin/jena"
+    echo "Installing Apache Jena ARQ in ext-bin/jena"
     wget $APACHE_JENA_URL
     @mkdir -p ext-bin
     @unzip -o -q -d ext-bin apache-jena-*.zip
