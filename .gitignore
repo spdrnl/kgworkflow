@@ -2,6 +2,7 @@
 logs/*
 output/*
 .task/*
+ext-bin/*
 
 
 # Python bytecode
