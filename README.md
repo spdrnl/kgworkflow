@@ -35,9 +35,11 @@ All these tools are available for Windows, macOS and Linux. Note that for VS Cod
 
 uv is a tool that makes it easy to manage Python projects. It is a wrapper around pip and virtualenv. It is a newer version of a tool called Poetry. 
 
-just is a command runner. just resembles make, it is more light-weight though. It is designed to run recipes. just can also be used anywhere on the command prompt. uv scripts, notebooks, anything can be made executable with it. It is even possible to embed Python code in justfiles.
+just is a command runner. just resembles make, it is more light-weight though. It is designed to run single commands or recipes. just can also be used anywhere on the command prompt. uv scripts, notebooks, anything can be made executable with it. It is even possible to embed Python code in justfiles.
 
-Once you workflow gets a big bigger, and you want to avoid running longer running tasks unnecessary, then taskfile can help you out. taskfile allows you to plan your whole workflow, and rerun necessary steps after you made changes to your project.
+Once you workflow gets a bit bigger, and you want to avoid running longer running tasks unnecessary, then taskfile can help you out. taskfile allows you to plan your whole workflow, and rerun necessary steps after you made changes to your project.
+
+In general just is handy to notate technical commands that you want to run and don't want to be bothered remembering. taskfile is handy to plan your workflow for creating ontologies.
 
 turtlefmt formats and validates your turtle files. This adds extra assurance to a publication process.
 
@@ -178,7 +180,7 @@ sparql-select -h
 sparql-select -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.ttl -o output/out.csv
 ```
 
-This command line tool is part of the Python source code files.
+This command line tool is created using the Python source code files. Command line tools can handily integrate with taskfile. If you upload your package to PyPI, then after installation these tools become automatically available to other developers.
 
 ## Getting your feet wet
 
