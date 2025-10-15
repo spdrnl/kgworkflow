@@ -39,7 +39,7 @@ just is a command runner. just resembles make, it is more light-weight though. I
 
 Once you workflow gets a bit bigger, and you want to avoid running longer running tasks unnecessary, then taskfile can help you out. taskfile allows you to plan your whole workflow, and rerun necessary steps after you made changes to your project.
 
-In general just is handy to notate technical commands that you want to run and don't want to be bothered remembering. taskfile is handy to plan your workflow for creating ontologies.
+In general just is handy to notate technical commands that you want to run and don't want to be bothered remembering. Or if you would like to use different sparql reasoners strategies for example. taskfile is handy to plan your workflow for creating ontologies. It is possible then to refer to just for different strategies.
 
 turtlefmt formats and validates your turtle files. This adds extra assurance to a publication process.
 
@@ -127,8 +127,6 @@ Here is a real enthousiast: https://www.youtube.com/watch?v=R6gBWDlQowM&t=60s
 Just is more a command runner than a workflow engine. It shines in two ways:
 - Use it as repository for commands you are likely to forget otherwise.
 - Create simple recipes to automate task sequences you would otherwise do by hand.
-
-make is more advanced than just; for example it avoids running compilations if nothing changed. Just on the other hand is versatile, and can also easily be used outside development projects to create all kinds of command line magic.
 
 To see how just can be used to automate workflows, see the justfile in the project. For example, you can run:
 ```sh
