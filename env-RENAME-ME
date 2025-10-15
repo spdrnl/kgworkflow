@@ -1,5 +1,5 @@
 # Set the approriate environment variables
-# And rename this file to .env
+# And save this file to .env
 
 # Where to find the logging config? Default is logging.yaml
 LOGGING_CONFIG=logging.yaml
