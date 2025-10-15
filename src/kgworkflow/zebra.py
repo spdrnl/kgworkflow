@@ -1,18 +1,16 @@
 import logging
 import time
 
-from kgworkflow.util.helper import (
-    infer_graph,
-    get_kg,
-    output_ttl,
-    sparql_select,
-    get_sparql,
+from kgworkflow.helpers.general_helper import (
     UserException,
 )
+from kgworkflow.helpers.ttl_helper import output_ttl, read_ttl_kg
+from kgworkflow.helpers.reasoner_helper import infer_graph
+from kgworkflow.helpers.sparql_helper import sparql_select, read_sparql
 
 from dotenv import load_dotenv
 
-from kgworkflow.util.setup_logging import setup_logging
+from kgworkflow.logging.setup_logging import setup_logging
 
 # Get settings from .env
 load_dotenv()
@@ -26,7 +24,7 @@ def main():
     start_time = time.time()
 
     logger.info("Read Turtle file.")
-    kg = get_kg("input/ttl/zebra.ttl")
+    kg = read_ttl_kg("input/ttl/zebra.ttl")
 
     logger.info("Running reasoner.")
     # See robot-test.sh for example robot config, not standard.
@@ -36,7 +34,7 @@ def main():
     output_ttl(inferred_kg)
 
     logger.info("Running SPARQL query.")
-    query = get_sparql("input/sparql/zebra.sparql")
+    query = read_sparql("input/sparql/zebra.sparql")
     df = sparql_select(inferred_kg, query)
 
     # Report time

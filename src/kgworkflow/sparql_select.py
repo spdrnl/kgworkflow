@@ -5,8 +5,10 @@ import time
 from dotenv import load_dotenv
 from pandas import DataFrame
 
-from kgworkflow.util.helper import get_sparql, sparql_select, get_kg, UserException
-from kgworkflow.util.setup_logging import setup_logging
+from kgworkflow.helpers.general_helper import UserException
+from kgworkflow.helpers.ttl_helper import read_ttl_kg
+from kgworkflow.helpers.sparql_helper import sparql_select, read_sparql
+from kgworkflow.logging.setup_logging import setup_logging
 
 # Get settings from .env
 load_dotenv()
@@ -112,8 +114,8 @@ def run_query(input_file, query_file) -> DataFrame:
     :return: A DataFrame containing the results of the executed query.
     :rtype: DataFrame
     """
-    query = get_sparql(query_file)
-    kg = get_kg(input_file)
+    query = read_sparql(query_file)
+    kg = read_ttl_kg(input_file)
     logger.info("Starting query.")
     df = sparql_select(kg, query)
     return df
