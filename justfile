@@ -1,14 +1,16 @@
 set dotenv-load := true
 
 default:
-    just --list
+    @just --list
 
 # Runs pip-install after.
-install-project: && pip-install
+install-project:
     @uv venv
     @uv sync
+    @just install-tools
+    @just install-ext
 
-pip-install:
+install-tools:
     @uv pip install --editable .
 
 install-ext: &&install-arq install-robot
@@ -38,16 +40,6 @@ update-requirements:
 remove-origin:
     @git remote rm origin
 
-say-hello:
-    @echo "Hello!"
-    @just default
-
-solve-zebra:
-    @uv run solve-zebra
-
-sparql-select:
-    @uv run sparql-select -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.ttl -o output/out.csv
-
 run-test:
     @uv run pytest
 
@@ -74,3 +66,9 @@ hermit-instance-profile input_file output_file:
     --output {{ output_file }} \
     --include-indirect true \
     --reasoner hermit
+
+solve-zebra:
+    @uv run solve-zebra
+
+sparql-select:
+    @uv run sparql-select -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.ttl -o output/out.csv

@@ -45,6 +45,10 @@ turtlefmt formats and validates your turtle files. This adds extra assurance to 
 
 Python, git and Jupyter are assumed to be known and installed.
 
+Additionally, you can install these ontology tools in your project:
+- Jena ARQ
+- ROBOT
+
 Contributions to this project are welcome. Do you have an interesting OWL or SPARQL task, create a pull request.
 
 ## If you do not want to use uv
@@ -167,7 +171,7 @@ If you changed the scripts in pyproject.toml, you have to reinstall the project.
 If you have installed just:
 
 ```sh
-just pip-install
+just install-tools
 ```
 
 You can now execute:
@@ -273,6 +277,13 @@ just run-notebook ./notebooks/example.ipynb
 Special attention has been paid to the logging configuration. The logging configuration can be found in the logging.yaml file.
 
 Note that for the module kgworkflow.util.helper the log level has been set to DEBUG. Fine grained logging configuration can help debugging and error reporting.
+
+## Install ontology tools
+To install ontology tools, run:
+```sh
+just install-ext
+```
+
 ## Easily distribute your project as a package
 
 uv can distribute your project as a package via for example PyPI. The command to upload your project as package to PyPI
