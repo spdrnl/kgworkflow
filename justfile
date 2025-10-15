@@ -11,6 +11,15 @@ install-project: && pip-install
 pip-install:
     @uv pip install --editable .
 
+install-arq:
+    echo "Installing Apache Jena in ext-bin/jena"
+    wget $APACHE_JENA_URL
+    @mkdir -p ext-bin
+    @unzip -o -q -d ext-bin apache-jena-*.zip
+    @rm -rf ext-bin/jena
+    @mv ext-bin/apache-jena* ext-bin/jena
+    @rm apache-jena-*.zip
+
 update-requirements:
     @uv pip freeze > requirements.txt
 
