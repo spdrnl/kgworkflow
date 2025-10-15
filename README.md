@@ -92,6 +92,8 @@ Alternatively, you can activate the virtual environment manually:
 ```sh
 source .venv/bin/activate
 ```
+
+This will 
 ### Run tests
 
 With uv tests can be run as follows:

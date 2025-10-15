@@ -5,8 +5,6 @@ default:
 
 # Runs pip-install after.
 install-project:
-    @uv venv
-    @uv sync
     @just install-tools
     @just install-ext
 
