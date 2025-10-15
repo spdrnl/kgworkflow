@@ -66,7 +66,7 @@ format-turtle:
     @turtlefmt test/resources/ttl/ input/ttl output
 
 hermit-instance-profile input_file output_file:
-    robot reason \
+    sh ext-bin/robot/robot reason \
     --input {{ input_file}} \
     --create-new-ontology true \
     --equivalent-classes-allowed all \
