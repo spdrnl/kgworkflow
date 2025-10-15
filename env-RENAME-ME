@@ -9,3 +9,6 @@ ROBOT=/home/sanne/Apps/robot/robot
 
 # Use this namespace as default for output
 DEFAULT_NAMESPACE=http://www.owl-test.org/
+
+# Where is Apache Jena?
+APACHE_JENA_URL=https://dlcdn.apache.org/jena/binaries/apache-jena-5.6.0.zip
