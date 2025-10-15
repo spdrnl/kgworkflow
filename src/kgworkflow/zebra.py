@@ -26,7 +26,7 @@ def main():
     start_time = time.time()
 
     logger.info("Read Turtle file.")
-    kg = get_kg("src/resources/ttl/zebra.ttl")
+    kg = get_kg("input/ttl/zebra.ttl")
 
     logger.info("Running reasoner.")
     # See robot-test.sh for example robot config, not standard.
@@ -36,7 +36,7 @@ def main():
     output_ttl(inferred_kg)
 
     logger.info("Running SPARQL query.")
-    query = get_sparql("src/resources/sparql/zebra.sparql")
+    query = get_sparql("input/sparql/zebra.sparql")
     df = sparql_select(inferred_kg, query)
 
     # Report time
