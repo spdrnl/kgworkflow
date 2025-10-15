@@ -21,10 +21,10 @@ def output_ttl(graph: Graph) -> None:
         default_ns = Namespace(os.getenv("DEFAULT_NAMESPACE"))
 
     output_file = f"{get_project_root()}/output/out.ttl"
-    write_ttl(graph, output_file, default_ns, base)
+    write_ttl_kg(graph, output_file, default_ns, base)
 
 
-def write_ttl(
+def write_ttl_kg(
     graph: Graph, filename: str, default_ns: Namespace = None, base: str = None
 ) -> None:
     """

@@ -2,7 +2,7 @@ import logging
 import os
 import tempfile
 
-from kgworkflow.helpers.ttl_helper import output_ttl, write_ttl, read_ttl_kg
+from kgworkflow.helpers.ttl_helper import output_ttl, write_ttl_kg, read_ttl_kg
 from kgworkflow.helpers.reasoner_helper import infer_graph
 from kgworkflow.helpers.sparql_helper import sparql_ask, sparql_select, read_sparql
 from dotenv import load_dotenv
@@ -39,7 +39,7 @@ def test_reason_hermit():
 
 def test_write_ttl():
     with tempfile.NamedTemporaryFile(suffix=".ttl", delete=True) as output_file:
-        write_ttl(read_ttl_kg(TOY), output_file.name)
+        write_ttl_kg(read_ttl_kg(TOY), output_file.name)
         assert os.path.exists(f"{output_file.name}")
 
 
