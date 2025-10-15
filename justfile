@@ -35,11 +35,11 @@ run-notebook file:
 
 run-python:
     #!/usr/bin/env -S uv run --script --quiet
-    from kgworkflow.util.helper import get_sparql
-    print(get_sparql("src/resources/sparql/zebra.sparql"))
+    from kgworkflow.helpers.sparql_helper import read_sparql
+    print(read_sparql("input/sparql/zebra.sparql"))
 
 run-ruff:
     @pre-commit run --all-files
 
 format-turtle:
-    @turtlefmt test/resources/ttl/ src/resources/ttl output
+    @turtlefmt test/resources/ttl/ input/ttl output

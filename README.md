@@ -187,12 +187,17 @@ This command line tool is created using the Python source code files. Command li
 To show how these tools all tie together, let's execute a SPARQL query. If you installed all the tools as described
 above, you can execute a command to do this in four different ways.
 
-Execute a SPARQL query using the Python interpreter:
+Execute a SPARQL query using the Python interpreter, use the right venv:
 
 ```sh
-python -m kgworkflow.sparql_select  -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.ttl -o output/out.csv
+python -m kgworkflow.tools.sparql_select  -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.ttl -o output/out.csv
 ```
 
+or 
+
+```sh
+uv run python -m kgworkflow.tools.sparql_select  -q test/resources/sparql/s-p-o.sparql -i test/resources/ttl/toy.ttl -o output/out.csv
+```
 Execute a SPARQL query using a uv script, see pyproject.toml for more information:
 
 ```sh
@@ -243,7 +248,7 @@ Here is a controversial opinion: pre-commit hooks are over used. The number of h
 ## Format your turtle files
 Also installed through uv is turtlefmt, a formatter for turtle files. To format your turtle files, run:
 ```sh
-turtlefmt test/resources/ttl/ src/resources/ttl output
+turtlefmt test/resources/ttl/ input/ttl output
 ```
 or:
 ```sh
