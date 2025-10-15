@@ -11,14 +11,26 @@ install-project: && pip-install
 pip-install:
     @uv pip install --editable .
 
+install-ext: &&install-arq install-robot
+    @echo "Installing external binaries."
+
 install-arq:
-    echo "Installing Apache Jena ARQ in ext-bin/jena"
-    wget $APACHE_JENA_URL
+    @echo "Installing Apache Jena ARQ in ext-bin/jena"
+    @wget $APACHE_JENA_URL
     @mkdir -p ext-bin
     @unzip -o -q -d ext-bin apache-jena-*.zip
     @rm -rf ext-bin/jena
     @mv ext-bin/apache-jena* ext-bin/jena
     @rm apache-jena-*.zip
+
+install-robot:
+    @echo "Installing ROBOT in ext-bin/robot"
+    @rm -rf ext-bin/robot
+    @mkdir -p ext-bin/robot
+    @wget $ROBOT_URL
+    @mv robot.jar ext-bin/robot/
+    @wget https://raw.githubusercontent.com/ontodev/robot/master/bin/robot
+    @mv robot ext-bin/robot/
 
 update-requirements:
     @uv pip freeze > requirements.txt
