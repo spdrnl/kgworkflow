@@ -43,3 +43,13 @@ run-ruff:
 
 format-turtle:
     @turtlefmt test/resources/ttl/ input/ttl output
+
+hermit-instance-profile input_file output_file:
+    robot reason \
+    --input {{ input_file}} \
+    --create-new-ontology true \
+    --equivalent-classes-allowed all \
+    --axiom-generators "SubClass EquivalentClass DisjointClasses ClassAssertion PropertyAssertion" \
+    --output {{ output_file }} \
+    --include-indirect true \
+    --reasoner hermit
