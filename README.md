@@ -39,7 +39,7 @@ just is a command runner. just resembles make, it is more light-weight though. I
 
 Once you workflow gets a bit bigger, and you want to avoid running longer running tasks unnecessary, then taskfile can help you out. taskfile allows you to plan your whole workflow, and rerun necessary steps after you made changes to your project.
 
-In general just is handy to notate technical commands that you want to run and don't want to be bothered remembering. Or if you would like to use different sparql reasoners strategies for example. taskfile is handy to plan your workflow for creating ontologies. It is possible then to refer to just for different strategies. See for examples the section 'task primer'.
+In general just is handy to notate technical commands that you want to run and don't want to be bothered remembering. Or if you would like to use different sparql reasoners strategies for example. taskfile is handy to plan your workflow for creating ontologies. It is possible then to refer to just for different strategies. See for example the section 'task primer'.
 
 turtlefmt formats and validates your turtle files. This adds extra assurance to a publication process.
 
@@ -145,7 +145,9 @@ Try running the following task twice:
 ```sh
 task infer-toy
 ```
-The infer task will run the hermit reasoner over the a small toy ontology and output the result to a file in the output directory. You will see that the second time around task will notify you that the task is up to date. This is because the ontology did not change since the last run. This way you can easily create a workflow that only runs tasks that are necessary once you made changes to your project.
+The infer task will run the hermit reasoner over the a small toy ontology and output the result to a file in the output directory. task refers to just to execute the right hermit settings. This way you can keep several hermit settings in just and refer to them in task.
+
+You will see that the second time around task will notify you that the task is up to date. This is because the ontology did not change since the last run. This way you can easily create a workflow that only runs tasks that are necessary once you made changes to your project.
 
 ## Install your own command line tools
 
